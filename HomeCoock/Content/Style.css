@@ -1,0 +1,74 @@
+﻿body, html {
+    height: 100%;
+    margin: 0;
+}
+
+.bg {
+    /* The image used */
+    background-image: url(images/celosia.jpg);
+    /* Full height */
+    height: 100%;
+    /* Center and scale the image nicely */
+    /*background-repeat:no-repeat;
+            background-attachment:fixed;
+            background-position: center;
+            background-size: contain;*/
+}
+
+.centro {
+    margin: 0 auto;
+    position: absolute;
+    top: 10%;
+    left: 50%;
+    /*margin-top: -1%;*/
+    margin-left: -97px;
+    /*margin-left: -7%;*/
+}
+
+.btonUp {
+    border: 1px solid #ff6a00;
+    border-radius: 10px 10px 5px 5px;
+    background-color: #F9F5CC;
+}
+.btonRight {
+    border: 1px solid #ff6a00;
+    border-radius: 5px 10px 10px 5px;
+    background-color: #F9F5CC;
+}
+.btonLeft {
+    border: 1px solid #ff6a00;
+    border-radius: 10px 5px 5px 10px;
+    background-color: #F9F5CC;
+}
+.btonMid {
+    border: 1px solid #ff6a00;
+    border-radius: 5px 5px 5px 5px;
+    background-color: #F9F5CC;
+}
+.btonDown {
+    border: 1px solid #ff6a00;
+    border-radius: 5px 5px 10px 10px;
+    background-color: #F9F5CC;
+}
+
+
+.btonRight:hover {
+    background-color: #fff8b2;
+    border-color: #ff4500;
+}
+.btonLeft:hover {
+    background-color: #fff8b2;
+    border-color: #ff4500;
+}
+.btonUp:hover {
+    background-color: #fff8b2;
+    border-color: #ff4500;
+}
+.btonMid:hover {
+    background-color: #fff8b2;
+    border-color: #ff4500;
+}
+.btonDown:hover {
+    background-color: #fff8b2;
+    border-color: #ff4500;
+}
