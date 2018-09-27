@@ -12,6 +12,7 @@
 # Include dlls if they’re in the NuGet packages directory
 !/packages/*/lib/*.dll
 !/packages/*/lib/*/*.dll
+!/packages/Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0/**
 # Include dlls if they're in the CommonReferences directory
 !*CommonReferences/*.dll
 ####################
@@ -75,5 +76,4 @@ _[Ss]cripts
 *.dot[Cc]over
 
 *.config
-packages/**
-!packages/Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0/
+packages
