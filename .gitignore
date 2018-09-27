@@ -76,4 +76,10 @@ _[Ss]cripts
 *.dot[Cc]over
 
 *.config
-packages
+#packages/
+!/packages/Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0/**
+packages/bootstrap.3.3.7/*
+packages/jQuery.3.3.1/*
+packages/Microsoft.AspNet.*/*
+packages/Newtonsoft.Json.11.0.1/*
+packages/Modernizr.2.8.3/*
