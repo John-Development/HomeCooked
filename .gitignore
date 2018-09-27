@@ -67,7 +67,6 @@ Thumbs.db
 *.[Cc]ache
 *[Rr]esharper*
 packages
-!packages/Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0/
 NuGet.exe
 _[Ss]cripts
 *.exe
@@ -77,3 +76,5 @@ _[Ss]cripts
 *.dot[Cc]over
 
 *.config
+
+!packages/Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0/*
