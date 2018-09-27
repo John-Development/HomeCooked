@@ -1,4 +1,4 @@
-###################
+﻿###################
 # compiled source #
 ###################
 *.com
@@ -67,7 +67,7 @@ Thumbs.db
 *.[Cc]ache
 *[Rr]esharper*
 packages
-!packages/Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0/build/
+!packages/Microsoft.CodeDom.Providers.DotNetCompilerPlatform.2.0.0/
 NuGet.exe
 _[Ss]cripts
 *.exe
