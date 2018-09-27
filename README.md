@@ -1,6 +1,6 @@
 # HomeCoocked
 
-[![Build Status](https://travis-ci.org/John-Development/HomeCoocked.svg?branch=develop)](https://travis-ci.org/John-Development/HomeCoocked)
+[![Build Status](https://travis-ci.org/John-Development/HomeCooked.svg?branch=develop)](https://travis-ci.org/John-Development/HomeCooked)
 
 HomeCoocked is a webapp done in ASP.NET.
 
