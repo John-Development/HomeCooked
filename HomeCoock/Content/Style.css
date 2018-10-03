@@ -10,9 +10,9 @@
     height: 100%;
     /* Center and scale the image nicely */
     /*background-repeat:no-repeat;
-            background-attachment:fixed;
-            background-position: center;
-            background-size: contain;*/
+    background-attachment:fixed;
+    background-position: center;
+    background-size: contain;*/
 }
 
 .centro {
@@ -30,21 +30,25 @@
     border-radius: 10px 10px 5px 5px;
     background-color: #F9F5CC;
 }
+
 .btonRight {
     border: 1px solid #ff6a00;
     border-radius: 5px 10px 10px 5px;
     background-color: #F9F5CC;
 }
+
 .btonLeft {
     border: 1px solid #ff6a00;
     border-radius: 10px 5px 5px 10px;
     background-color: #F9F5CC;
 }
+
 .btonMid {
     border: 1px solid #ff6a00;
     border-radius: 5px 5px 5px 5px;
     background-color: #F9F5CC;
 }
+
 .btonDown {
     border: 1px solid #ff6a00;
     border-radius: 5px 5px 10px 10px;
@@ -56,126 +60,70 @@
     background-color: #fff8b2;
     border-color: #ff4500;
 }
+
 .btonLeft:hover {
     background-color: #fff8b2;
     border-color: #ff4500;
 }
+
 .btonUp:hover {
     background-color: #fff8b2;
     border-color: #ff4500;
 }
+
 .btonMid:hover {
     background-color: #fff8b2;
     border-color: #ff4500;
 }
+
 .btonDown:hover {
     background-color: #fff8b2;
     border-color: #ff4500;
 }
 
-
+/*#region LateralBar*/
 #navigation {
     position: fixed;
     margin: 0;
     padding: 0;
-    top: 10px;
+    top: 50px;
     left: 0;
     list-style: none;
     z-index: 9999;
 }
 
-#navigation li {
-    width: 100px;
-}
+    #navigation li {
+        width: 100px;
+    }
 
-#navigation li a {
-    display: block;
-    margin-left: -85px;
-    width: 100px;
-    height: 70px;
-    background-color: #CFCFCF;
-    background-repeat: no-repeat;
-    background-position: center center;
-    border: 1px solid #AFAFAF;
-}
+    #navigation a {
+        display: block;
+        margin-left: -2px;
+        width: 100px;
+        height: 70px;
+        background-color: #CFCFCF;
+        background-repeat: no-repeat;
+        background-position: center center;
+        border: 1px solid #AFAFAF;
+        border-radius: 0 10px 10px 0;
+        box-shadow: 0 4px 3px #000;
+        opacity: 0.6;
+        filter: progid:DXImageTransform.Microsoft.Alpha(opacity=60);
+    }
 
-#navigation li a {
-    display: block;
-    margin-left: -85px;
-    width: 100px;
-    height: 70px;
-    background-color: #CFCFCF;
-    background-repeat: no-repeat;
-    background-position: center center;
-    border: 1px solid #AFAFAF;
-    border-radius: 0 10px 10px 0;
-}
+    #navigation .home a {
+        background-image: url(../images/home.png);
+    }
 
-#navigation li a {
-    display: block;
-    margin-left: -85px;
-    width: 100px;
-    height: 70px;
-    background-color: #CFCFCF;
-    background-repeat: no-repeat;
-    background-position: center center;
-    border: 1px solid #AFAFAF;
-    border-radius: 0 10px 10px 0;
-    opacity: 0.6;
-    filter: progid:DXImageTransform.Microsoft.Alpha(opacity=60);
-}
+    #navigation .about a {
+        background-image: url(../images/id_card.png);
+    }
 
-#navigation .home a {
-    background-image: url(../images/home.png);
-}
+    #navigation .login a {
+        background-image: url(../images/ipod.png);
+    }
 
-#navigation .about a {
-    background-image: url(../images/id_card.png);
-}
-
-#navigation .search a {
-    background-image: url(../images/search.png);
-}
-
-#navigation .podcasts a {
-    background-image: url(../images/ipod.png);
-}
-
-#navigation .rssfeed a {
-    background-image: url(../images/rss.png);
-}
-
-#navigation .photos a {
-    background-image: url(../images/camera.png);
-}
-
-#navigation .contact a {
-    background-image: url(../images/mail.png);
-}
-
-#navigation li a {
-    display: block;
-    margin-left: -2px;
-    width: 100px;
-    height: 70px;
-    background-color: #CFCFCF;
-    background-repeat: no-repeat;
-    background-position: center center;
-    border: 1px solid #AFAFAF;
-    border-radius: 0 10px 10px 0;
-    opacity: 0.6;
-    filter: progid:DXImageTransform.Microsoft.Alpha(opacity=60);
-}
-
-#navigation li a {
-    display: block;
-    margin-left: -2px;
-    width: 100px;
-    height: 70px;
-    background-color: #CFCFCF;
-    background-repeat: no-repeat;
-    background-position: center center;
-    border: 1px solid #AFAFAF;
-    border-radius: 0 10px 10px 0;
-    box-shadow: 0 4px 3px #000;
-}
+    #navigation .contact a {
+        background-image: url(../images/mail.png);
+    }
+/*#endregion */

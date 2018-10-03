@@ -131,6 +131,10 @@
     <Content Include="Content\bootstrap.min.css.map" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="images\1euroNew.jpg" />
+    <Content Include="images\home.png" />
+    <Content Include="images\id_card.png" />
+    <Content Include="images\ipod.png" />
+    <Content Include="images\mail.png" />
     <Content Include="Login.aspx" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
