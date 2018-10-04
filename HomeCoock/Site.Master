@@ -21,7 +21,7 @@
 </head>
 <body>
     <form runat="server">
-        <script type="text/javascript" src="/Scripts/LateralBar.js"></script> 
+        <script type="text/javascript" src="/Scripts/code.js"></script> 
         <asp:ScriptManager runat="server">
             <Scripts>
                 <%--To learn more about bundling scripts in ScriptManager see https://go.microsoft.com/fwlink/?LinkID=301884 --%>

@@ -24,7 +24,7 @@
         <asp:Button CssClass="btonDown" ID="Button2" runat="server" Text="Button" Width="177px" />
     </form>
     <form>
-        <asp:Image ID="Euro" runat="server" src="images/1euroNew.jpg" alt="Sample Photo" Visible="false"/>
+        <asp:Image ID="Euro" runat="server" ImageUrl="images/1euroNew.jpg" AlternateText="Sample Photo" Visible="false"/>
     </form>
 </body>
 </html>

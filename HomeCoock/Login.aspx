@@ -56,11 +56,11 @@
     <div>
     Nombre de usuario.
     <br />
-    <asp:TextBox runat="server"></asp:TextBox>
+    <asp:TextBox ID="user" runat="server"></asp:TextBox>
     <br />
     Contraseña.
     <br />
-    <asp:TextBox ID="centro2" runat="server"></asp:TextBox>
+    <asp:TextBox ID="password" runat="server"></asp:TextBox>
     <br />
     </div>
     <asp:Button CssClass="btonLeft" Text="Cancelar" runat="server" OnClick="Return_Click"/>

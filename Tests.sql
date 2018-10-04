@@ -1,0 +1,1 @@
+﻿SELECT * FROM Usuarios WHERE Username='Pepe' AND Password='1234'
