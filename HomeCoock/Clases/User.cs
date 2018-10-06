@@ -1,4 +1,6 @@
-﻿namespace HomeCoock
+﻿using System;
+
+namespace HomeCoock
 {
     class User
     {
@@ -10,6 +12,13 @@
 
         public string Email { get; set; }
 
-
+        public static implicit operator User(string v)
+        {
+            throw new NotImplementedException();
+        }
+        public override string ToString()
+        {
+            return base.ToString();
+        }
     }
 }

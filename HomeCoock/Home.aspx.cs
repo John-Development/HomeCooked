@@ -1,4 +1,5 @@
-﻿using System;
+﻿using HomeCoock;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Web;
@@ -9,8 +10,11 @@ namespace HomeCoocked
 {
     public partial class Home : Page
     {
+        private User logedUser;
+
         protected void Page_Load(object sender, EventArgs e)
         {
+            logedUser = (User)Session["logedUser"];
             Euro.Visible = false;
         }
 

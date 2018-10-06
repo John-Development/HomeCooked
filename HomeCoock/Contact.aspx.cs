@@ -9,9 +9,11 @@ namespace HomeCoock
 {
     public partial class Contact : Page
     {
+        private User logedUser;
+
         protected void Page_Load(object sender, EventArgs e)
         {
-
+            logedUser = (User)Session["logedUser"];
         }
     }
 }
