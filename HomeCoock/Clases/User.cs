@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace HomeCoock
+namespace HomeCook
 {
     class User
     {

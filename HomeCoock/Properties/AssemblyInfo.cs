@@ -5,11 +5,11 @@ using System.Runtime.InteropServices;
 // La información general sobre un ensamblado se controla mediante el siguiente 
 // conjunto de atributos. Cambie los valores de estos atributos para modificar la información
 // asociada a un ensamblado.
-[assembly: AssemblyTitle("HomeCoock")]
+[assembly: AssemblyTitle("HomeCook")]
 [assembly: AssemblyDescription("")]
 [assembly: AssemblyConfiguration("")]
 [assembly: AssemblyCompany("")]
-[assembly: AssemblyProduct("HomeCoock")]
+[assembly: AssemblyProduct("HomeCook")]
 [assembly: AssemblyCopyright("Copyright ©  2018")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]

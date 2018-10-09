@@ -7,7 +7,7 @@
 // </generado automáticamente>
 //------------------------------------------------------------------------------
 
-namespace HomeCoock {
+namespace HomeCook {
     
     
     public partial class Contact {

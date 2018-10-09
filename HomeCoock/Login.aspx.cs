@@ -1,4 +1,4 @@
-﻿using HomeCoock.Clases;
+﻿using HomeCook.Clases;
 using Microsoft.Data.Sqlite;
 using System;
 using System.Collections.Generic;
@@ -8,7 +8,7 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using WebMatrix.Data;
 
-namespace HomeCoock
+namespace HomeCook
 {
     public partial class Login : Page
     {

@@ -7,9 +7,9 @@ using System.Web.UI;
 using System.Web.UI.WebControls;
 using Microsoft.AspNet.FriendlyUrls.Resolvers;
 
-namespace HomeCoock
+namespace HomeCook
 {
-    public partial class ViewSwitcher : System.Web.UI.UserControl
+    public partial class ViewSwitcher : UserControl
     {
         protected string CurrentView { get; private set; }
 

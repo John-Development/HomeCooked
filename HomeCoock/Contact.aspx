@@ -1,4 +1,4 @@
-﻿<%@ Page Title="Contact" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Contact.aspx.cs" Inherits="HomeCoock.Contact" %>
+﻿<%@ Page Title="Contact" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Contact.aspx.cs" Inherits="HomeCook.Contact" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
     <h2><%: Title %>.</h2>
@@ -14,6 +14,8 @@
         <strong>Support:</strong>   <a href="mailto:Support@example.com">Support@example.com</a><br />
         <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
     </address>
-    <asp:Button runat="server"/>
+
+    <input type="text" class="input-medium search-query">
+    <button type="submit" class="btn btn-primary">Buscar</button>
 
 </asp:Content>

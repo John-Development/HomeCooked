@@ -1,4 +1,4 @@
-﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="HomeCoock.SiteMaster" %>
+﻿<%@ Master Language="C#" AutoEventWireup="true" CodeBehind="Site.master.cs" Inherits="HomeCook.SiteMaster" %>
 
 <!DOCTYPE html>
 
@@ -7,7 +7,7 @@
 <meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
     <meta charset="utf-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title><%: Page.Title %> - HomeCoocked.NET</title>
+    <title><%: Page.Title %> - HomeCooked.NET</title>
 
     <asp:PlaceHolder runat="server">
         <%: Scripts.Render("~/bundles/modernizr") %>
@@ -15,7 +15,7 @@
 
     <webopt:bundlereference runat="server" path="~/Content/css" />
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
-    <link href="/Content/Style.css" rel="stylesheet" type="text/css"/>
+    <link href="/CSS/Style.css" rel="stylesheet" type="text/css"/>
     <%--<script type="text/javascript" src="/Scripts/LateralBar.js"></script> --%>
 
 </head>
@@ -51,7 +51,7 @@
                         <span class="icon-bar"></span>
                         <span class="icon-bar"></span>
                     </button>
-                    <a class="navbar-brand" runat="server" href="~/">HOMECOOCKED</a>
+                    <a class="navbar-brand" runat="server" href="~/">HOMECOOKED</a>
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
@@ -76,7 +76,7 @@
             </asp:ContentPlaceHolder>
             <hr />
             <footer>
-                <p>&copy; <%: DateTime.Now.Year %> - HomeCoocked ASP.NET</p>
+                <p>&copy; <%: DateTime.Now.Year %> - HomeCooked ASP.NET</p>
             </footer>
         </div>
 
