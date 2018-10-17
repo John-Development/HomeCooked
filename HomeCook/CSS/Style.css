@@ -15,14 +15,30 @@
     background-size: contain;*/
 }
 
-.centro {
-    margin: 0 auto;
-    position: absolute;
-    top: 10%;
-    left: 50%;
+.center {
+    margin: 50px auto;
+    position: center;
+    height: 200px;
+    width: 300px;
+    /*top: 10%;*/
+    /*left: 50%;*/
     /*margin-top: -1%;*/
-    margin-left: -97px;
+    /*margin-left: -97px;*/
     /*margin-left: -7%;*/
+}
+
+.centerElement {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    width: 70%;
+}
+
+.centerElement {
+    display: block;
+    margin-left: auto;
+    margin-right: auto;
+    /*width: 0%;*/
 }
 
 .btonUp {

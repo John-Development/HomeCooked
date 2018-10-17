@@ -16,7 +16,7 @@
     <webopt:bundlereference runat="server" path="~/Content/css" />
     <link href="~/favicon.ico" rel="shortcut icon" type="image/x-icon" />
     <link href="/CSS/Style.css" rel="stylesheet" type="text/css"/>
-    <%--<script type="text/javascript" src="/Scripts/LateralBar.js"></script> --%>
+    <script type="text/javascript" src="/JS/Code.js"></script> 
 
 </head>
 <body>
@@ -59,17 +59,18 @@
                         <li><a runat="server" href="~/About">Acerca de</a></li>
                         <li><a runat="server" href="~/Contact">Contacto</a></li>
                         <li><a runat="server" href="~/Login">Inicia sesión</a></li>
+                        <li><a runat="server" href="~/Perfil">Perfil</a></li>
                     </ul>
                 </div>
             </div>
         </div>
 
-        <ul id="navigation">
+        <%--<ul id="navigation">
             <li class="home"><a title="Inicio" href="/Home"></a></li>
             <li class="about"><a title="Acerca de" href="/About"></a></li>
             <li class="contact"><a title="Contacto" href="/Contact"></a></li>
             <li class="login"><a title="Iniciar sesión" href="/Login"></a></li>
-        </ul>
+        </ul>--%>
 
         <div class="container body-content">
             <asp:ContentPlaceHolder ID="MainContent" runat="server">

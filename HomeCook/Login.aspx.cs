@@ -16,12 +16,19 @@ namespace HomeCook
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            User user = (User)Session["logedUser"];
+            string id = null;
+            //User user = (User)Session["logedUser"];
+            try
+            {
+                id = Request.QueryString["id"].ToString();
+                Extras.VerifyAccount(id);
+            }
+            catch { }
         }
 
-        protected void Return_Click(object sender, EventArgs e)
+        protected void NewUser_Click(object sender, EventArgs e)
         {
-            Response.Redirect("/Home");
+            Response.Redirect("/Register");
         }
 
         protected void Login_Click(object sender, EventArgs e)

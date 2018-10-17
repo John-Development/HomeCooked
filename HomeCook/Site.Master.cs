@@ -18,7 +18,7 @@ namespace HomeCook
                 //Tabla de Usuarios
 
                 db.Open();
-                string tableCommand = "CREATE TABLE IF NOT EXISTS Users (Id INTEGER PRIMARY KEY, Username NVARCHAR(2048), Password NVARCHAR(2048), Email INTEGER)";
+                string tableCommand = "CREATE TABLE IF NOT EXISTS Users (Username NVARCHAR(2048) PRIMARY KEY, Password NVARCHAR(2048), Email INTEGER, Location NVARCHAR(2048), Image NVARCHAR(2048), Contact NVARCHAR(2048), Preferences NVARCHAR(2048), Rank INTEGER)";
                 //string tableCommand = "DROP TABLE IF EXISTS Users";
                 SqliteCommand createTable = new SqliteCommand(tableCommand, db);
                 try

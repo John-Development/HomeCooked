@@ -3,7 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.28010.2026
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomeCooked", "HomeCoock\HomeCooked.csproj", "{56B25620-BA00-4B3F-92E0-4F53E935ECA0}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "HomeCooked", "HomeCook\HomeCooked.csproj", "{56B25620-BA00-4B3F-92E0-4F53E935ECA0}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "WebApplication2", "WebApplication2\WebApplication2.csproj", "{6EAD048D-20FA-4F48-BB08-6C3F7E8823AA}"
 EndProject
