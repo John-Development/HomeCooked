@@ -6,9 +6,10 @@
             Aquí puede editar su perfil.
         </div>
         <br />
-        <div style="float:left; height: 200px; width: 200px; transform: scale(0.2, 0.2)">
-            <%--<asp:Image runat="server" ImageUrl="images/1euroNew.jpg"/>--%>
+        <div style="float:left">
             <img src="/" id="profilePic"/>
+            <br /> 
+            <input type="file" style="width: 200px" name="profilePic"/>
         </div>
         <div style="margin: 0 0 0 240px; width: 600px">
             Nombre de usuario
@@ -42,8 +43,13 @@
         </div>
         <br />
         <div class="centerButton">
-            <asp:Button CssClass="btn btn-primary" style="margin: 40px 0 0 0" Text="Guardar cambios" runat="server" OnClick="SaveCanges_Click"/>
-            <asp:Button CssClass="btn btn-primary" style="background-color: crimson; margin: 40px 0 0 200px" Text="Eliminar cuenta" runat="server" OnClick="DropOut_Click"/>
+            <asp:Button CssClass="btn btn-primary" style="margin: 40px 0" Text="Guardar cambios" runat="server" OnClick="SaveCanges_Click"/>
+            <asp:Button CssClass="btn btn-primary" style="background-color: crimson; margin: 40px 20px 40px 200px" Text="Eliminar cuenta" runat="server" OnClick="DropOut_Click"/>
+            <asp:label runat="server" style="" Text="Escribe tu contraseña para eliminar la cuenta"></asp:label>
+            <asp:TextBox runat="server" ID="passDelete" style="margin: 0 0 0 20px" TextMode="Password"></asp:TextBox>
         </div>
+        <%--<div id="popupdiv" title="Basic modal dialog" style="display: none;">
+
+        </div>--%>
     </div>
 </asp:Content>

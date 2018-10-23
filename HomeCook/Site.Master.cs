@@ -1,4 +1,5 @@
-﻿using Microsoft.Data.Sqlite;
+﻿using HomeCook.Clases;
+using Microsoft.Data.Sqlite;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -10,8 +11,15 @@ namespace HomeCook
 {
     public partial class SiteMaster : MasterPage
     {
+        User logedUser;
+
         protected void Page_Load(object sender, EventArgs e)
         {
+            if ((logedUser = (User)Session["logedUser"]) == null)
+                Perfil.InnerText = "Iniciar sesión";
+            else
+                Perfil.InnerText = "Perfil";
+
             //Crea las nuevas bbdd
             using (SqliteConnection db = new SqliteConnection("Filename=DB.db"))
             {

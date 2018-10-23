@@ -2,6 +2,7 @@
 using Microsoft.Data.Sqlite;
 using System;
 using System.Collections.Generic;
+using System.Drawing;
 using System.Linq;
 using System.Web;
 using System.Web.UI;
@@ -19,16 +20,21 @@ namespace HomeCook
             try
             {
                 logedUser = (User)Session["logedUser"];
-                user.Text = logedUser.Username;
-                email.Text = logedUser.Email;
-                location.Text = logedUser.Location;
-                shellfish.Checked = logedUser.Preferences.GetPref("shellfish");
-                gluten.Checked = logedUser.Preferences.GetPref("gluten");
-                lactose.Checked = logedUser.Preferences.GetPref("lactose");
+                if (logedUser == null)
+                    Response.Redirect("/Login", false);
+                else
+                {
+                    user.Text = logedUser.Username;
+                    email.Text = logedUser.Email;
+                    location.Text = logedUser.Location;
+                    shellfish.Checked = logedUser.Preferences.GetPref("shellfish");
+                    gluten.Checked = logedUser.Preferences.GetPref("gluten");
+                    lactose.Checked = logedUser.Preferences.GetPref("lactose");
+                }
             }
             catch
             {
-
+                Response.Redirect("/Home", false);
             }
         }
 
@@ -58,12 +64,20 @@ namespace HomeCook
             //else if ()
             //{
 
-            //}    
+            //}
+
+            Bitmap image = new Bitmap(System.Drawing.Image.FromStream(Request.Files["profilePic"].InputStream));
         }
 
         protected void DropOut_Click(object sender, EventArgs e)
         {
+            if (passDelete.Text == logedUser.Password)
+            {
+                Extras.DeleteUser(logedUser);
+                Response.Redirect("/Home");
+            }
 
+            //ScriptManager.RegisterStartupScript(this, GetType(), "1", "showmodalpopup1();", true);
         }
     }
 }

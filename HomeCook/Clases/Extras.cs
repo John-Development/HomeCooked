@@ -105,6 +105,28 @@ namespace HomeCook.Clases
             }
         }
 
+        internal static void DeleteUser(User user)
+        {
+            using (SqliteConnection db = new SqliteConnection("Filename=DB.db"))
+            {
+                //Tabla de Usuarios
+                db.Open();
+
+                string tableCommand = "DELETE FROM Users WHERE Username = @User";
+                SqliteCommand updateUser = new SqliteCommand(tableCommand, db);
+                updateUser.Parameters.AddWithValue("@User", user.Username);
+                try
+                {
+                    updateUser.ExecuteReader();
+                }
+                catch (SqliteException ex)
+                {
+                    throw ex;
+                }
+                db.Close();
+            }
+        }
+
         internal static void VerificationEmail(string id, string username, string email, string password)
         {
             var fromAddress = new MailAddress("homecooked.notify@gmail.com", "HomeCooked");

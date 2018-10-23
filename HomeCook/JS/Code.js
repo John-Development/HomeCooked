@@ -42,3 +42,18 @@
     // Load files into file reader
     reader.readAsDataURL(file);
 }
+
+function showmodalpopup1() {
+    $("#popupdiv").text("ElMensaje");
+
+    $("#popupdiv").dialog({
+
+        width: 400,
+        height: 150,
+        autoOpen: true,
+        draggable: false,
+        resizable: false,
+        hide: "slide",
+        modal: true
+    });
+}

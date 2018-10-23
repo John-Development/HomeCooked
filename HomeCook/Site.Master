@@ -21,7 +21,16 @@
 </head>
 <body>
     <form runat="server">
-        <script type="text/javascript" src="/Scripts/code.js"></script> 
+        <script type="text/javascript" src="/Scripts/code.js"></script>
+        <script>
+            function disableBtn(btn) {
+                document.getElementById(btn).disabled = true;
+            }
+
+            function enableBtn(btn) {
+                document.getElementById(btn).disabled = false;
+            } 
+        </script>
         <asp:ScriptManager runat="server">
             <Scripts>
                 <%--To learn more about bundling scripts in ScriptManager see https://go.microsoft.com/fwlink/?LinkID=301884 --%>
@@ -55,11 +64,11 @@
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        <li><a runat="server" href="~/">Inicio</a></li>
-                        <li><a runat="server" href="~/About">Acerca de</a></li>
-                        <li><a runat="server" href="~/Contact">Contacto</a></li>
-                        <li><a runat="server" href="~/Login">Inicia sesión</a></li>
-                        <li><a runat="server" href="~/Perfil">Perfil</a></li>
+                        <li><a runat="server" id="Home" href="~/">Inicio</a></li>
+                        <li><a runat="server" id="About" href="~/About">Acerca de</a></li>
+                        <li><a runat="server" id="Contact" href="~/Contact">Contacto</a></li>
+                        <%--<li><a runat="server" id="Login" href="~/Login">Inicia sesión</a></li>--%>
+                        <li><a runat="server" id="Perfil" href="~/Perfil">Perfil</a></li>
                     </ul>
                 </div>
             </div>

@@ -17,6 +17,14 @@ namespace HomeCooked
         {
             logedUser = (User)Session["logedUser"];
             Euro.Visible = false;
+            //if (logedUser == null)
+            //{
+            //    ScriptManager.RegisterStartupScript(this, GetType(), "1", "disableBtn(\"Perfil\");", true);
+            //}
+            //else
+            //{
+            //    ScriptManager.RegisterStartupScript(this, GetType(), "2", "disableBtn(\"Login\");", true);
+            //}
         }
 
         protected void Button1_Click(object sender, EventArgs e)
