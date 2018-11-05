@@ -142,6 +142,8 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="About.aspx" />
+    <Content Include="Adverts.aspx" />
+    <Content Include="CreateAdvert.aspx" />
     <Content Include="JS\Code.js" />
     <Content Include="Perfil.aspx" />
     <Content Include="Register.aspx" />
@@ -203,6 +205,13 @@
     <Content Include="Site.Mobile.Master" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Adverts.aspx.cs">
+      <DependentUpon>Adverts.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Adverts.aspx.designer.cs">
+      <DependentUpon>Adverts.aspx</DependentUpon>
+    </Compile>
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="About.aspx.cs">
       <DependentUpon>About.aspx</DependentUpon>
@@ -212,6 +221,7 @@
       <DependentUpon>About.aspx</DependentUpon>
     </Compile>
     <Compile Include="App_Start\RouteConfig.cs" />
+    <Compile Include="Clases\Advert.cs" />
     <Compile Include="Clases\Extras.cs" />
     <Compile Include="Clases\Preferences.cs" />
     <Compile Include="Contact.aspx.cs">
@@ -220,6 +230,13 @@
     </Compile>
     <Compile Include="Contact.aspx.designer.cs">
       <DependentUpon>Contact.aspx</DependentUpon>
+    </Compile>
+    <Compile Include="CreateAdvert.aspx.cs">
+      <DependentUpon>CreateAdvert.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="CreateAdvert.aspx.designer.cs">
+      <DependentUpon>CreateAdvert.aspx</DependentUpon>
     </Compile>
     <Compile Include="Home.aspx.cs">
       <DependentUpon>Home.aspx</DependentUpon>

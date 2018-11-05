@@ -10,60 +10,60 @@
 namespace HomeCook {
     
     
-    public partial class SiteMaster {
+    public partial class CreateAdvert {
         
         /// <summary>
-        /// Control Offers.
+        /// Control name.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlAnchor Offers;
+        protected global::System.Web.UI.WebControls.TextBox name;
         
         /// <summary>
-        /// Control Search.
+        /// Control details.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlAnchor Search;
+        protected global::System.Web.UI.WebControls.TextBox details;
         
         /// <summary>
-        /// Control Chat.
+        /// Control porciones.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlAnchor Chat;
+        protected global::System.Web.UI.WebControls.TextBox porciones;
         
         /// <summary>
-        /// Control Adverts.
+        /// Control shellfish.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlAnchor Adverts;
+        protected global::System.Web.UI.WebControls.CheckBox shellfish;
         
         /// <summary>
-        /// Control Perfil.
+        /// Control gluten.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlAnchor Perfil;
+        protected global::System.Web.UI.WebControls.CheckBox gluten;
         
         /// <summary>
-        /// Control MainContent.
+        /// Control lactose.
         /// </summary>
         /// <remarks>
         /// Campo generado automáticamente.
         /// Para modificarlo, mueva la declaración del campo del archivo del diseñador al archivo de código subyacente.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.ContentPlaceHolder MainContent;
+        protected global::System.Web.UI.WebControls.CheckBox lactose;
     }
 }

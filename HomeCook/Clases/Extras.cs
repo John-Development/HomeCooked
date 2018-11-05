@@ -4,6 +4,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Net;
 using System.Net.Mail;
+using System.Security.Principal;
 using System.Web;
 
 namespace HomeCook.Clases
@@ -32,7 +33,7 @@ namespace HomeCook.Clases
                     {
                         logedUser = new User(query.GetString(0), query.GetString(1), query.GetString(2), query.GetString(3), new Preferences(query.GetString(6)))
                         {
-                            Image = query.IsDBNull(4) ? null : query.GetString(4),
+                            ImageUri = query.IsDBNull(4) ? null : query.GetString(4),
                             Contact = query.IsDBNull(5) ? null : query.GetString(5),
                             Rank = query.IsDBNull(7) ? null : query.GetString(7)
                         };
@@ -50,6 +51,65 @@ namespace HomeCook.Clases
             }
 
             return logedUser;
+        }
+
+        internal static List<Advert> GetAdverts(User logedUser)
+        {
+            List<Advert> adverts = new List<Advert>();
+
+            using (SqliteConnection db = new SqliteConnection("Filename=DB.db"))
+            {
+                db.Open();
+                string tableCommand = "SELECT * FROM Products WHERE Vendor = @User";
+                SqliteCommand getAdverts = new SqliteCommand(tableCommand, db);
+                getAdverts.Parameters.AddWithValue("@User", logedUser.Username);
+                try
+                {
+                    SqliteDataReader query = getAdverts.ExecuteReader();
+
+                    while (query.Read())
+                    {
+                        adverts.Add(new Advert(query.GetString(1), query.GetString(2), logedUser, query.GetString(4), query.GetInt32(5), new Preferences(query.GetString(6))));
+                    }
+                }
+                catch (SqliteException)
+                {
+                    //Do nothing
+                }
+                db.Close();
+            }
+
+            return adverts;
+        }
+
+        internal static void CreateAdvert(string name, string details, Preferences prefs, User owner, int portions, String image)
+        {
+            //string id = user + password;
+
+            using (SqliteConnection db = new SqliteConnection("Filename=DB.db"))
+            {
+                //Tabla de Usuarios
+                db.Open();
+                //ID Name Details Vendor Image Portions Preferences
+                string tableCommand = "INSERT INTO Products (Name, Details, Vendor, Image, Portions, Preferences) VALUES (@Name, @Details, @Vendor, @Image, @Portions, @Prefs)";
+                SqliteCommand setAdvert = new SqliteCommand(tableCommand, db);
+                setAdvert.Parameters.AddWithValue("@Name", name);
+                setAdvert.Parameters.AddWithValue("@Details", details);
+                setAdvert.Parameters.AddWithValue("@Portions", portions);
+                setAdvert.Parameters.AddWithValue("@Vendor", owner.Username);
+                setAdvert.Parameters.AddWithValue("@Prefs", prefs.ToString());
+                setAdvert.Parameters.AddWithValue("@Image", image);
+                try
+                {
+                    setAdvert.ExecuteReader();
+                }
+                catch (SqliteException ex)
+                {
+                    throw ex;
+                }
+                db.Close();
+            }
+            //return id.GetHashCode().ToString();
         }
 
         internal static string Register(string user, string email, string password, string location, Preferences pref)

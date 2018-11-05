@@ -64,10 +64,10 @@
                 </div>
                 <div class="navbar-collapse collapse">
                     <ul class="nav navbar-nav">
-                        <li><a runat="server" id="Home" href="~/">Inicio</a></li>
-                        <li><a runat="server" id="About" href="~/About">Acerca de</a></li>
-                        <li><a runat="server" id="Contact" href="~/Contact">Contacto</a></li>
-                        <%--<li><a runat="server" id="Login" href="~/Login">Inicia sesión</a></li>--%>
+                        <li><a runat="server" id="Offers" href="~/">Ofertas</a></li>
+                        <li><a runat="server" id="Search" href="~/">Buscar</a></li>
+                        <li><a runat="server" id="Chat" href="~/Chat">Chat</a></li>
+                        <li><a runat="server" id="Adverts" href="~/Adverts">Anuncios</a></li>
                         <li><a runat="server" id="Perfil" href="~/Perfil">Perfil</a></li>
                     </ul>
                 </div>

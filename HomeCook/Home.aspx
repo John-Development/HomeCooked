@@ -1,7 +1,7 @@
 ﻿<%@ Page Title="Home" Language="C#" MasterPageFile="~/Site.Master" AutoEventWireup="true" CodeBehind="Home.aspx.cs" Inherits="HomeCooked.Home" %>
 
 <asp:Content ID="BodyContent" ContentPlaceHolderID="MainContent" runat="server">
-    <div>
+    <%--<div>
         HOLA, bienvenido a nuestra aplicación de COMIDA.</div>
     <br />
     Introduce tu nombre y QUE TE DEN un euro.<br />
@@ -13,5 +13,10 @@
     <br />
     <asp:Button CssClass="btonDown" ID="About" runat="server" Text="Botón inútil" Width="177px"/>
     <br />
-    <asp:Image ID="Euro" runat="server" ImageUrl="images/1euroNew.jpg" AlternateText="Sample Photo" Visible="false"/>
+    <asp:Image ID="Euro" runat="server" ImageUrl="images/1euroNew.jpg" AlternateText="Sample Photo" Visible="false"/>--%>
+    
+    <asp:ListView runat="server" ID="ofertas">
+        <ItemTemplate/>
+    </asp:ListView>
+
 </asp:Content>

@@ -1,4 +1,5 @@
 ﻿
+using Newtonsoft.Json;
 using System;
 
 namespace HomeCook.Clases
@@ -13,7 +14,7 @@ namespace HomeCook.Clases
 
         public string Location { get; set; }
 
-        public string Image { get; set; }
+        public string ImageUri { get; set; }
 
         public string Contact { get; set; }
 
@@ -36,7 +37,7 @@ namespace HomeCook.Clases
         }
         public override string ToString()
         {
-            return base.ToString();
+            return JsonConvert.SerializeObject(this);
         }
     }
 }

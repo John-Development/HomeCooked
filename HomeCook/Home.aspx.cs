@@ -16,7 +16,7 @@ namespace HomeCooked
         protected void Page_Load(object sender, EventArgs e)
         {
             logedUser = (User)Session["logedUser"];
-            Euro.Visible = false;
+            //Euro.Visible = false;
             //if (logedUser == null)
             //{
             //    ScriptManager.RegisterStartupScript(this, GetType(), "1", "disableBtn(\"Perfil\");", true);
@@ -27,17 +27,17 @@ namespace HomeCooked
             //}
         }
 
-        protected void Button1_Click(object sender, EventArgs e)
-        {
-            if (Name.Text != "" && !Name.Text.Contains("TU PUTO NOMBRE"))
-            {
-                Euro.Visible = true;
-            }
-            else
-            {
-                Name.Text = "TU PUTO NOMBRE";
-            }
-        }
+        //protected void Button1_Click(object sender, EventArgs e)
+        //{
+        //    if (Name.Text != "" && !Name.Text.Contains("TU PUTO NOMBRE"))
+        //    {
+        //        Euro.Visible = true;
+        //    }
+        //    else
+        //    {
+        //        Name.Text = "TU PUTO NOMBRE";
+        //    }
+        //}
 
         protected void Login_Click(object sender, EventArgs e)
         {

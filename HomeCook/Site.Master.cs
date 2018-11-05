@@ -1,4 +1,5 @@
-﻿using HomeCook.Clases;
+﻿
+using HomeCook.Clases;
 using Microsoft.Data.Sqlite;
 using System;
 using System.Collections.Generic;
@@ -26,12 +27,28 @@ namespace HomeCook
                 //Tabla de Usuarios
 
                 db.Open();
-                string tableCommand = "CREATE TABLE IF NOT EXISTS Users (Username NVARCHAR(2048) PRIMARY KEY, Password NVARCHAR(2048), Email INTEGER, Location NVARCHAR(2048), Image NVARCHAR(2048), Contact NVARCHAR(2048), Preferences NVARCHAR(2048), Rank INTEGER)";
+                string tableCommandUsers = "CREATE TABLE IF NOT EXISTS Users (Username NVARCHAR(2048) PRIMARY KEY, Password NVARCHAR(2048), Email INTEGER, Location NVARCHAR(2048), Image NVARCHAR(2048), Contact NVARCHAR(2048), Preferences NVARCHAR(2048), Rank INTEGER)";
                 //string tableCommand = "DROP TABLE IF EXISTS Users";
-                SqliteCommand createTable = new SqliteCommand(tableCommand, db);
+                SqliteCommand createTableUsers = new SqliteCommand(tableCommandUsers, db);
                 try
                 {
-                    createTable.ExecuteReader();
+                    createTableUsers.ExecuteReader();
+                }
+                catch (SqliteException)
+                {
+                    //Do nothing
+                }
+                db.Close();
+
+                //Tabla de Productos
+
+                db.Open();
+                string tableCommandProducts = "CREATE TABLE IF NOT EXISTS Products (ID INTEGER PRIMARY KEY, Name NVARCHAR(2048), Details NVARCHAR(2048), Vendor NVARCHAR(2048), Image NVARCHAR(2048), Portions INTEGER, Preferences NVARCHAR(2048))";
+                //string tableCommandProducts = "DROP TABLE IF EXISTS Users";
+                SqliteCommand createTableProducts = new SqliteCommand(tableCommandProducts, db);
+                try
+                {
+                    createTableProducts.ExecuteReader();
                 }
                 catch (SqliteException)
                 {
