@@ -1,4 +1,5 @@
 ﻿using HomeCook.Clases;
+using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -23,7 +24,7 @@ namespace HomeCook
             {
                 //Load list of user adverts
                 userAdverts = Extras.GetAdverts(logedUser);
-
+                ScriptManager.RegisterStartupScript(Page, typeof(Page), "loadAdverts", "listarAnuncios(" + JsonConvert.SerializeObject(userAdverts) + ");", true);
                 //Add items to interface
             }
         }

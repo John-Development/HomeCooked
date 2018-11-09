@@ -143,3 +143,37 @@
         background-image: url(../images/mail.png);
     }
 /*#endregion */
+
+/*#region coincidence*/
+.coincidenceElement {
+    width: 100%;
+    height: 100%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    text-align: center;
+    padding: 100px;
+    padding-bottom: 50px;
+    padding-top: 0;
+    box-sizing: border-box;
+}
+
+/*.coincidenceElement:hover {
+    border: 3px solid black;
+    cursor: pointer;
+}*/
+
+.imgCoincidence {
+    /*width: 100%;
+    height: 100%;*/
+    width: 142px;
+    height: 80px;
+    /*background-image: url("../media/Chinchilla.jpg");*/
+    background-size: cover;
+    background-position: center;
+}
+
+.nameCoincidence {
+    margin-left: 10px;
+}
+/*#endregion*/
