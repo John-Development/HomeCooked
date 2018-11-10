@@ -66,8 +66,8 @@ function listarAnuncios(infoJson) {
     /*
     <div id="advertElement" style="height: 100px; width: 700px">
         <div style="width: 100px; height: 100px; float:left" >
-            <div style="height: 80px;" id="image"> imagen </div>
-            <div style="height: 20px;" id="name"> nombre </div>
+            <div style="height: 60px;" id="image"> imagen </div>
+            <div style="height: 40px;" id="name"> nombre </div>
         </div>
         <div style="width: 600px; height:100px; float: right">
             <div style="width: 450px; height:100px; float:left">
@@ -80,10 +80,6 @@ function listarAnuncios(infoJson) {
             </div>
         </div>
     </div>
-
-    nameDiv.innerHTML = infoJson[i].Nombre   + " " +
-            infoJson[i].PrimerAp + " " +
-            infoJson[i].SegundoAp;
     */
 
     for (let i = 0; i < infoJson.length; i++) {
@@ -94,19 +90,19 @@ function listarAnuncios(infoJson) {
 
         //Foto y nombre
         var bloque1Div = document.createElement("div");
-        bloque1Div.setAttribute("style", "width: 100px; height: 100px; float:left");
+        bloque1Div.setAttribute("style", "width: 100px; height: 100px; float:left; background-color: azure");
 
         var imgDiv = document.createElement("div");
-        imgDiv.setAttribute("style", "height: 80px;");
+        imgDiv.setAttribute("style", "height: 60px;");
         //imgDiv.innerHTML = infoJson[i].ImageUri;
 
         var nameDiv = document.createElement("div");
-        nameDiv.setAttribute("style", "height: 20px;");
+        nameDiv.setAttribute("style", "height: 40px;");
         nameDiv.innerHTML = infoJson[i].Name;
 
-        //Descripcion y alergenos
+        //Descripcion y alergenos aliceblue
         var bloque2Div = document.createElement("div");
-        bloque2Div.setAttribute("style", "width: 600px; height:100px; float: right");
+        bloque2Div.setAttribute("style", "width: 600px; height:100px; float: right; background-color: aliceblue");
 
         var bloque2_1Div = document.createElement("div");
         bloque2_1Div.setAttribute("style", "width: 450px; height:100px; float:left");
@@ -125,11 +121,15 @@ function listarAnuncios(infoJson) {
 
         var b1Div = document.createElement("button");
         b1Div.setAttribute("class", "btn btn-primary");
+        b1Div.setAttribute("onclick", "Button1(" + infoJson[i].ID + ")");
+        //b1Div.setAttribute("id", infoJson.ID);
         b1Div.setAttribute("style", "height:50px; width: 150px");
         b1Div.innerHTML = "Activar anuncio";
 
         var b2Div = document.createElement("button");
         b2Div.setAttribute("class", "btn btn-primary");
+        b2Div.setAttribute("onclick", "Button2(" + infoJson[i].ID + ")"); 
+        //b2Div.setAttribute("id", infoJson.ID);
         b2Div.setAttribute("style", "height:50px; width: 150px");
         b2Div.innerHTML = "Borrar anuncio";
 
@@ -148,7 +148,6 @@ function listarAnuncios(infoJson) {
         document.getElementById("elements").appendChild(elementDiv);
     }
 }
-
 
 function preferences(preferencias) {
     var res = "Este producto ";

@@ -43,7 +43,7 @@ namespace HomeCook
                 //Tabla de Productos
 
                 db.Open();
-                string tableCommandProducts = "CREATE TABLE IF NOT EXISTS Products (ID INTEGER PRIMARY KEY, Name NVARCHAR(2048), Details NVARCHAR(2048), Vendor NVARCHAR(2048), Image NVARCHAR(2048), Portions INTEGER, Preferences NVARCHAR(2048))";
+                string tableCommandProducts = "CREATE TABLE IF NOT EXISTS Products (ID INTEGER PRIMARY KEY, Name NVARCHAR(2048), Details NVARCHAR(2048), Vendor NVARCHAR(2048), Image NVARCHAR(2048), Portions INTEGER, Preferences NVARCHAR(2048), Active INTEGER)";
                 //string tableCommandProducts = "DROP TABLE IF EXISTS Users";
                 SqliteCommand createTableProducts = new SqliteCommand(tableCommandProducts, db);
                 try
