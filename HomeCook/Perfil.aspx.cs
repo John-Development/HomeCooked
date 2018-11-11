@@ -69,6 +69,12 @@ namespace HomeCook
             Bitmap image = new Bitmap(System.Drawing.Image.FromStream(Request.Files["profilePic"].InputStream));
         }
 
+        protected void Logout_Click(object sender, EventArgs e)
+        {
+            Session["logedUser"] = null;
+            Response.Redirect("/Home");
+        }
+
         protected void DropOut_Click(object sender, EventArgs e)
         {
             if (passDelete.Text == logedUser.Password)

@@ -44,7 +44,8 @@
         <br />
         <div class="centerButton">
             <asp:Button CssClass="btn btn-primary" style="margin: 40px 0" Text="Guardar cambios" runat="server" OnClick="SaveCanges_Click"/>
-            <asp:Button CssClass="btn btn-primary" style="background-color: crimson; margin: 40px 20px 40px 200px" Text="Eliminar cuenta" runat="server" OnClick="DropOut_Click"/>
+            <asp:Button CssClass="btn btn-primary" style="margin: 40px 0 40px 10px" Text="Cerrar sesión" runat="server" OnClick="Logout_Click"/>
+            <asp:Button CssClass="btn btn-primary" style="background-color: crimson; margin: 40px 20px 40px 50px" Text="Eliminar cuenta" runat="server" OnClick="DropOut_Click"/>
             <asp:label runat="server" style="" Text="Escribe tu contraseña para eliminar la cuenta"></asp:label>
             <asp:TextBox runat="server" ID="passDelete" style="margin: 0 0 0 20px" TextMode="Password"></asp:TextBox>
         </div>
