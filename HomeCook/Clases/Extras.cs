@@ -14,6 +14,11 @@ namespace HomeCook.Clases
     {
         private static Dictionary<string, string[]> pendingActivation = new Dictionary<string, string[]>();
 
+        internal static bool IsValidate(string username)
+        {
+            return !pendingActivation.ContainsKey(username);
+        }
+
         internal static User Login(string user, string password)
         {
             User logedUser = null;
@@ -22,7 +27,7 @@ namespace HomeCook.Clases
             {
                 //Tabla de Usuarios
                 db.Open();
-                string tableCommand = "SELECT * FROM Users WHERE Username = @User AND Password = @Pass";
+                string tableCommand = "SELECT * FROM Users WHERE Username = @User AND Password = @Pass AND Validate = 1";
                 SqliteCommand getUser = new SqliteCommand(tableCommand, db);
                 getUser.Parameters.AddWithValue("@User", user);
                 getUser.Parameters.AddWithValue("@Pass", password);
@@ -112,7 +117,7 @@ namespace HomeCook.Clases
             return advert;
         }
 
-        internal static void CreateAdvert(string name, string details, Preferences prefs, User owner, int portions, String image)
+        internal static void CreateAdvert(string name, string details, Preferences prefs, User owner, int portions, string image)
         {
             //string id = user + password;
 
@@ -195,13 +200,15 @@ namespace HomeCook.Clases
             {
                 //Tabla de Usuarios
                 db.Open();
-                string tableCommand = "INSERT INTO Users (Username, Email, Password, Location, Preferences) VALUES (@User, @Email, @Pass, @Loc, @Alerg)";
+                string tableCommand = "INSERT INTO Users (Username, Email, Password, Location, Preferences, Validate) VALUES (@User, @Email, @Pass, @Loc, @Alerg, @Val)";
                 SqliteCommand setUser = new SqliteCommand(tableCommand, db);
                 setUser.Parameters.AddWithValue("@User", user);
                 setUser.Parameters.AddWithValue("@Email", email);
                 setUser.Parameters.AddWithValue("@Pass", password);
                 setUser.Parameters.AddWithValue("@Loc", location);
                 setUser.Parameters.AddWithValue("@Alerg", pref.ToString());
+                setUser.Parameters.AddWithValue("@Val", 0);
+
                 try
                 {
                     setUser.ExecuteReader();

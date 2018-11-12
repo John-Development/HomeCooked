@@ -42,6 +42,10 @@ namespace HomeCook
                 Session["logedUser"] = logedUser;
                 Response.Redirect("/Home");
             }
+            else
+            {
+                //No esta validado?
+            }
         }
     }
 }

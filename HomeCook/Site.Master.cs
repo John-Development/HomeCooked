@@ -16,10 +16,7 @@ namespace HomeCook
 
         protected void Page_Load(object sender, EventArgs e)
         {
-            if ((logedUser = (User)Session["logedUser"]) == null)
-                Perfil.InnerText = "Iniciar sesión";
-            else
-                Perfil.InnerText = "Perfil";
+            Perfil.InnerText = ((logedUser = (User)Session["logedUser"]) == null) ? "Iniciar sesión" : logedUser.Username;
 
             //Crea las nuevas bbdd
             using (SqliteConnection db = new SqliteConnection("Filename=DB.db"))
@@ -27,7 +24,7 @@ namespace HomeCook
                 //Tabla de Usuarios
 
                 db.Open();
-                string tableCommandUsers = "CREATE TABLE IF NOT EXISTS Users (Username NVARCHAR(2048) PRIMARY KEY, Password NVARCHAR(2048), Email INTEGER, Location NVARCHAR(2048), Image NVARCHAR(2048), Contact NVARCHAR(2048), Preferences NVARCHAR(2048), Rank INTEGER)";
+                string tableCommandUsers = "CREATE TABLE IF NOT EXISTS Users (Username NVARCHAR(2048) PRIMARY KEY, Password NVARCHAR(2048), Email INTEGER, Location NVARCHAR(2048), Image NVARCHAR(2048), Contact NVARCHAR(2048), Preferences NVARCHAR(2048), Rank INTEGER, Validation INTEGER)";
                 //string tableCommand = "DROP TABLE IF EXISTS Users";
                 SqliteCommand createTableUsers = new SqliteCommand(tableCommandUsers, db);
                 try
