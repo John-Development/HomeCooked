@@ -44,13 +44,21 @@ namespace HomeCook
         {
             if (password.Text != "" && passRepeat.Text != "")
             {
+                User newValue = logedUser;
+
                 Preferences prefs = new Preferences();
                 prefs.SetPref("shellfish", shellfish.Checked);
                 prefs.SetPref("gluten", gluten.Checked);
                 prefs.SetPref("lactose", lactose.Checked);
+
+                newValue.Preferences = prefs;
+                newValue.Password = password.Text;
+                if (location.Text != "")
+                    newValue.Location = location.Text;
+
                 try
                 {
-                    Extras.ModifyUser(logedUser);
+                    Extras.ModifyUser(newValue);
                 }
                 catch (Exception ex)
                 {
@@ -80,6 +88,7 @@ namespace HomeCook
             if (passDelete.Text == logedUser.Password)
             {
                 Extras.DeleteUser(logedUser);
+                Session["logedUser"] = null;
                 Response.Redirect("/Home");
             }
 

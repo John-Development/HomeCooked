@@ -26,8 +26,7 @@ namespace HomeCoock
                 prefs.SetPref("lactose", lactose.Checked);
                 try
                 {
-                    string id = Extras.Register(user.Text, email.Text, password.Text, location.Text, prefs);
-                    Extras.VerificationEmail(id, user.Text, email.Text, password.Text);
+                    Extras.Register(user.Text, email.Text, password.Text, location.Text, prefs);
                 }
                 catch (Exception ex)
                 {

@@ -8,7 +8,7 @@ namespace HomeCook.Clases
     {
         public string Username { get; }
 
-        public string Password { get; }
+        public string Password { get; set; }
 
         public string Email { get; }
 

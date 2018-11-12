@@ -12,11 +12,31 @@ namespace HomeCook.Clases
 {
     public class Extras
     {
-        private static Dictionary<string, string[]> pendingActivation = new Dictionary<string, string[]>();
-
-        internal static bool IsValidate(string username)
+        internal static bool IsValidate(string id)
         {
-            return !pendingActivation.ContainsKey(username);
+            using (SqliteConnection db = new SqliteConnection("Filename=DB.db"))
+            {
+                //Tabla de Usuarios
+                db.Open();
+                string tableCommand = "SELECT Username FROM Users WHERE Validate = @Val";
+                SqliteCommand getUser = new SqliteCommand(tableCommand, db);
+                getUser.Parameters.AddWithValue("@Val", id);
+                try
+                {
+                    SqliteDataReader query = getUser.ExecuteReader();
+
+                    while (query.Read())
+                    {
+                        return false;
+                    }
+                }
+                catch (SqliteException)
+                {
+                    //Do nothing
+                }
+                db.Close();
+            }
+            return true;
         }
 
         internal static User Login(string user, string password)
@@ -192,9 +212,9 @@ namespace HomeCook.Clases
             }
         }
 
-        internal static string Register(string user, string email, string password, string location, Preferences pref)
+        internal static void Register(string user, string email, string password, string location, Preferences pref)
         {
-            string id = user + password;
+            string id = (user + password).GetHashCode().ToString();
 
             using (SqliteConnection db = new SqliteConnection("Filename=DB.db"))
             {
@@ -207,7 +227,7 @@ namespace HomeCook.Clases
                 setUser.Parameters.AddWithValue("@Pass", password);
                 setUser.Parameters.AddWithValue("@Loc", location);
                 setUser.Parameters.AddWithValue("@Alerg", pref.ToString());
-                setUser.Parameters.AddWithValue("@Val", 0);
+                setUser.Parameters.AddWithValue("@Val", id);
 
                 try
                 {
@@ -219,7 +239,7 @@ namespace HomeCook.Clases
                 }
                 db.Close();
             }
-            return id.GetHashCode().ToString();
+            VerificationEmail(id, user, email, password);
         }
 
         internal static void ModifyUser(User user)
@@ -277,8 +297,6 @@ namespace HomeCook.Clases
             string subject = "Verifique su cuenta";
             string body = "Acceda al siguiente enlace para verificar su cuenta y poder disfrutar de HomeCooked:\n http://localhost:65527/login?id=" + id;
 
-            pendingActivation.Add(id, new string[2]{ username, password });
-
             var smtp = new SmtpClient
             {
                 Host = "smtp.gmail.com",
@@ -298,15 +316,30 @@ namespace HomeCook.Clases
             }
         }
 
-        internal static User VerifyAccount(string id)
+        internal static void VerifyAccount(string id)
         {
-            string[] user = pendingActivation[id];
-            if (user != null)
+            if (!IsValidate(id))
             {
-                pendingActivation.Remove(id);
-                return Login(user[0], user[1]);
+                using (SqliteConnection db = new SqliteConnection("Filename=DB.db"))
+                {
+                    //Tabla de Usuarios
+                    db.Open();
+
+                    string tableCommand = "UPDATE Users SET Validate = @Val WHERE Validate = @OldVal";
+                    SqliteCommand updateUser = new SqliteCommand(tableCommand, db);
+                    updateUser.Parameters.AddWithValue("@Val", 1);
+                    updateUser.Parameters.AddWithValue("@OldVal", id);
+                    try
+                    {
+                        updateUser.ExecuteReader();
+                    }
+                    catch (SqliteException ex)
+                    {
+                        throw ex;
+                    }
+                    db.Close();
+                }
             }
-            return null;
         }
     }
 }
