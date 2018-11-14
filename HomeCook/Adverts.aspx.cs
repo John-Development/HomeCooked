@@ -58,7 +58,6 @@ namespace HomeCook
             Response.Redirect("/Adverts");
         }
 
-
         private void ListarAnuncios(List<Advert> userAdverts)
         {
             /**

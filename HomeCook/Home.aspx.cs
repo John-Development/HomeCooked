@@ -68,7 +68,6 @@ namespace HomeCooked
                 LinkButton elementLinkButton = new LinkButton();
                 elementLinkButton.Style.Add(HtmlTextWriterStyle.Height, "100px");
                 elementLinkButton.Style.Add(HtmlTextWriterStyle.Width, "700px");
-                elementLinkButton.Style.Add("margin", "0 0 25px 100px");
                 elementLinkButton.Click += new EventHandler(Advert_click);
 
                 HtmlGenericControl elementDiv = new HtmlGenericControl("div");

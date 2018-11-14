@@ -381,11 +381,27 @@ namespace HomeCook.Clases
         {
             using (SqliteConnection db = new SqliteConnection("Filename=DB.db"))
             {
+                //Tabla de Productos
+                db.Open();
+
+                string tableCommand = "DELETE FROM Products WHERE Vendor = @User";
+                SqliteCommand deleteUser = new SqliteCommand(tableCommand, db);
+                deleteUser.Parameters.AddWithValue("@User", user.Username);
+                try
+                {
+                    deleteUser.ExecuteReader();
+                }
+                catch (SqliteException ex)
+                {
+                    throw ex;
+                }
+                db.Close();
+
                 //Tabla de Usuarios
                 db.Open();
 
-                string tableCommand = "DELETE FROM Users WHERE Username = @User";
-                SqliteCommand deleteUser = new SqliteCommand(tableCommand, db);
+                tableCommand = "DELETE FROM Users WHERE Username = @User";
+                deleteUser = new SqliteCommand(tableCommand, db);
                 deleteUser.Parameters.AddWithValue("@User", user.Username);
                 try
                 {
