@@ -16,7 +16,7 @@ namespace HomeCook
     {
         private User logedUser;
         private List<Advert> userAdverts;
-        private Extras extras;
+        private Extras extras = new Extras();
 
         protected void Page_Load(object sender, EventArgs e)
         {
