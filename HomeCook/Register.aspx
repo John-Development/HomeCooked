@@ -36,7 +36,8 @@
         </div>
         <br />
         <div class="centerButton">
-            <asp:Button CssClass="btn btn-primary" style="margin: 40px 0 0 200px" Text="Registrarse" runat="server" OnClick="Register_Click"/>
+            <asp:Button CssClass="btn btn-primary" style="margin: 40px 0 0 40px; background-color:crimson" Text="Cancelar" runat="server" OnClick="Cancel_Click"/>
+            <asp:Button CssClass="btn btn-primary" style="margin: 40px 0 0 100px" Text="Registrarse" runat="server" OnClick="Register_Click"/>
         </div>
     </div>
 </asp:Content>

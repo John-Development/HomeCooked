@@ -27,6 +27,7 @@ namespace HomeCoock
                 try
                 {
                     Extras.Register(user.Text, email.Text, password.Text, location.Text, prefs);
+                    Response.Redirect("/Home");
                 }
                 catch (Exception ex)
                 {
@@ -35,12 +36,17 @@ namespace HomeCoock
 
                     }
                 }
-                
+
             }
             //else if ()
             //{
 
             //}
+        }
+
+        protected void Cancel_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("/Login");
         }
     }
 }

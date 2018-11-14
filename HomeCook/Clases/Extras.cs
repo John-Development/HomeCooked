@@ -79,6 +79,116 @@ namespace HomeCook.Clases
             return logedUser;
         }
 
+        internal static User GetUser(string user)
+        {
+            User logedUser = null;
+
+            using (SqliteConnection db = new SqliteConnection("Filename=DB.db"))
+            {
+                //Tabla de Usuarios
+                db.Open();
+                string tableCommand = "SELECT * FROM Users WHERE Username = @User";
+                SqliteCommand getUser = new SqliteCommand(tableCommand, db);
+                getUser.Parameters.AddWithValue("@User", user);
+                try
+                {
+                    SqliteDataReader query = getUser.ExecuteReader();
+
+                    while (query.Read())
+                    {
+                        logedUser = new User(query.GetString(0), query.GetString(1), query.GetString(2), query.GetString(3), new Preferences(query.GetString(6)))
+                        {
+                            ImageUri = query.IsDBNull(4) ? null : query.GetString(4),
+                            Contact = query.IsDBNull(5) ? null : query.GetString(5),
+                            Rank = query.IsDBNull(7) ? null : query.GetString(7)
+                        };
+
+
+
+                    }
+
+                }
+                catch (SqliteException)
+                {
+                    //Do nothing
+                }
+                db.Close();
+            }
+
+            return logedUser;
+        }
+
+        internal static List<Advert> GetAdverts()
+        {
+            List<Advert> adverts = new List<Advert>();
+            List<string> users = new List<string>();
+
+            using (SqliteConnection db = new SqliteConnection("Filename=DB.db"))
+            {
+                db.Open();
+                string tableCommand = "SELECT * FROM Products WHERE Active = 1";
+                SqliteCommand getAdverts = new SqliteCommand(tableCommand, db);
+                try
+                {
+                    SqliteDataReader query = getAdverts.ExecuteReader();
+
+                    while (query.Read())
+                    {
+                        users.Add(query.GetString(3));
+                        adverts.Add(new Advert(query.GetInt32(0), query.GetString(1), query.GetString(2), null, query.GetString(4), query.GetInt32(5), new Preferences(query.GetString(6)), (query.GetInt32(7) == 1)));
+                    }
+                }
+                catch (SqliteException)
+                {
+                    //Do nothing
+                }
+                db.Close();
+            }
+
+            for(int i = 0; i < users.Count(); i++)
+            {
+                adverts[i].Owner = GetUser(users[i]);
+            }
+
+            return adverts;
+        }
+
+        internal static List<Advert> GetAdverts(string username)
+        {
+            List<Advert> adverts = new List<Advert>();
+            List<string> users = new List<string>();
+
+            using (SqliteConnection db = new SqliteConnection("Filename=DB.db"))
+            {
+                db.Open();
+                string tableCommand = "SELECT * FROM Products WHERE Active = 1 AND Vendor <> @Vend";
+                SqliteCommand getAdverts = new SqliteCommand(tableCommand, db);
+                getAdverts.Parameters.AddWithValue("@Vend", username);
+                try
+                {
+                    SqliteDataReader query = getAdverts.ExecuteReader();
+
+                    while (query.Read())
+                    {
+                        users.Add(query.GetString(3));
+                        adverts.Add(new Advert(query.GetInt32(0), query.GetString(1), query.GetString(2), null, query.GetString(4), query.GetInt32(5), new Preferences(query.GetString(6)), (query.GetInt32(7) == 1)));
+                    }
+                }
+                catch (SqliteException)
+                {
+                    //Do nothing
+                }
+                db.Close();
+            }
+
+            for (int i = 0; i < users.Count(); i++)
+            {
+                adverts[i].Owner = GetUser(users[i]);
+            }
+
+            return adverts;
+        }
+
         internal static List<Advert> GetAdverts(User logedUser)
         {
             List<Advert> adverts = new List<Advert>();
@@ -340,6 +450,31 @@ namespace HomeCook.Clases
                     db.Close();
                 }
             }
+        }
+
+        internal string Preferences(Preferences preferencias)
+        {
+            string res = "Este producto ";
+
+            res = !preferencias.GetPref("shellfish") && !preferencias.GetPref("gluten") && !preferencias.GetPref("lactose") ?
+                res + " no contiene ningún alérgeno, " : res + " contiene ";
+
+            if (preferencias.GetPref("shellfish"))
+            {
+                res = res + "marisco, ";
+            }
+            if (preferencias.GetPref("gluten"))
+            {
+                res = res + "gluten, ";
+            }
+            if (preferencias.GetPref("lactose"))
+            {
+                res = res + "lactosa, ";
+            }
+
+            res = res.Substring(0, res.Count() - 2);
+            res = res + ".";
+            return res;
         }
     }
 }

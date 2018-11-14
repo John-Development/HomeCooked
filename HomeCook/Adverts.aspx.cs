@@ -16,6 +16,7 @@ namespace HomeCook
     {
         private User logedUser;
         private List<Advert> userAdverts;
+        private Extras extras;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -45,7 +46,7 @@ namespace HomeCook
             //activate or deactivate the advert
             int id = int.Parse(((Button)sender).Parent.ID);
             bool active = Extras.IsAdvertActive(id);
-            Extras.ModifyAdvert(id, active);
+            Extras.ModifyAdvert(id, !active);
             ((Button)sender).Text = active ? "Activar anuncio" : "Desactivar anuncio";
         }
         
@@ -87,7 +88,6 @@ namespace HomeCook
                 elementDiv.Style.Add(HtmlTextWriterStyle.Height, "100px");
                 elementDiv.Style.Add(HtmlTextWriterStyle.Width, "700px");
                 elementDiv.Style.Add("margin", "0 0 25px 100px");
-            
 
                 //Foto y nombre
                 HtmlGenericControl bloque1Div = new HtmlGenericControl("div");
@@ -122,7 +122,7 @@ namespace HomeCook
 
                 HtmlGenericControl alergDiv = new HtmlGenericControl("div");
                 alergDiv.Style.Add("height", "40px");
-                alergDiv.InnerHtml = Preferences(userAdverts[i].Preferences);
+                alergDiv.InnerHtml = extras.Preferences(userAdverts[i].Preferences);
 
                 //Botones
                 HtmlGenericControl bloque2_2Div = new HtmlGenericControl("div");
@@ -157,31 +157,6 @@ namespace HomeCook
 
                 elements.Controls.Add(elementDiv);
             }
-        }
-
-        private string Preferences(Preferences preferencias)
-        {
-            string res = "Este producto ";
-
-            res = !preferencias.GetPref("shellfish") && !preferencias.GetPref("gluten") && !preferencias.GetPref("lactose") ?
-                res + " no contiene ningún alérgeno, " : res + " contiene ";
-
-            if (preferencias.GetPref("shellfish"))
-            {
-                res = res + "marisco, ";
-            }
-            if (preferencias.GetPref("gluten"))
-            {
-                res = res + "gluten, ";
-            }
-            if (preferencias.GetPref("lactose"))
-            {
-                res = res + "lactosa, ";
-            }
-
-            res = res.Substring(0, res.Count() - 2);
-            res = res + ".";
-            return res;
         }
     }
 }

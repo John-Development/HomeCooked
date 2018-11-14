@@ -2,7 +2,7 @@
 
 <asp:Content ContentPlaceHolderID="MainContent" runat="server">
     <div class="center">
-        <asp:Button class="btn btn-primary" runat="server" style="float:right" ID="new" Text="Crear anuncio" OnClick="NewAdvert_Click"/>
+        <asp:Button CssClass="btn btn-primary" runat="server" style="float:right" ID="new" Text="Crear anuncio" OnClick="NewAdvert_Click"/>
     </div>
     <div class="coincidenceElement" id="elements" runat="server" style="display: inline; align-items: center">
         <%--<div id="advertElement" style="height: 100px; width: 700px; margin: 0 0 25px 100px">
@@ -22,39 +22,4 @@
                 </div>
             </div>--%>
     </div>
-    <script type="text/javascript">
-        function Button2(id) {
-            console.log("boton 2");
-            <%--console.log("<%=ResolveUrl("~/Adverts.aspx")%>");--%>
-
-            //Call the approve method on the code behind
-            //$.ajax({
-            //    type: "POST",
-            //    url: "Pages/Mobile/Adverts.aspx/Button2_click",
-            //    data: "{'id':'" + id + "' }", //Pass the parameter names and values
-            //    contentType: "application/json; charset=utf-8",
-            //    dataType: "json",
-            //    async: true,
-            //});
-            //PageMethods.set_path("<%=ResolveUrl("~/Adverts.aspx")%>");
-            PageMethods.Button2_click(id);
-        }
-
-        function Button1(id) {
-            console.log("boton 1");
-
-            //Call the approve method on the code behind
-            //$.ajax({
-            //    type: "POST",
-            //    url: "Pages/Mobile/Adverts.aspx/Button1_click",
-            //    data: "{'id':'" + id + "' }", //Pass the parameter names and values
-            //    contentType: "application/json; charset=utf-8",
-            //    dataType: "json",
-            //    async: true,
-            //});
-
-            //PageMethods.set_path("<%=ResolveUrl("~/Adverts.aspx")%>");
-            PageMethods.Button1_click(id);
-        }
-    </script>
 </asp:Content>
