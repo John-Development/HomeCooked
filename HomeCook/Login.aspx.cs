@@ -33,19 +33,15 @@ namespace HomeCook
 
         protected void Login_Click(object sender, EventArgs e)
         {
-            if (user.Text != "" && password.Text != null)
-            {
-                logedUser = Extras.Login(user.Text, password.Text);
-            }
+            Session["logedUser"] = logedUser;
             if (logedUser != null)
-            {
-                Session["logedUser"] = logedUser;
                 Response.Redirect("/Home");
-            }
-            else
-            {
-                //No esta validado?
-            }
+        }
+
+        protected void CustomValidator1_ServerValidate(object source, ServerValidateEventArgs args)
+        {
+            logedUser = Extras.Login(user.Text, password.Text);
+            args.IsValid = (logedUser != null);
         }
     }
 }

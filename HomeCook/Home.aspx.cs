@@ -20,6 +20,31 @@ namespace HomeCooked
         {
             logedUser = (User)Session["logedUser"];
 
+            string name = Request.QueryString["nombre"]?.ToString();
+            //bool alerg = (Request.QueryString["alerg"]?.ToString() == "true");
+            //string location = Request.QueryString["localizacion"]?.ToString();
+
+
+            if (name != null)
+            {
+
+            }
+
+            //try
+            //{
+            //    //Load list of user adverts
+            //    globalAdverts = (logedUser != null) ? Extras.GetAdverts(logedUser.Username) : Extras.GetAdverts();
+            //    //Add items to interface
+            //    ListarAnuncios(globalAdverts);
+            //}
+            //catch
+            //{
+            //    //Load list of user adverts
+            //    globalAdverts = (logedUser != null) ? Extras.GetAdverts(logedUser.Username) : Extras.GetAdverts();
+            //    //Add items to interface
+            //    ListarAnuncios(globalAdverts);
+            //}
+
             //Load list of user adverts
             globalAdverts = (logedUser != null) ? Extras.GetAdverts(logedUser.Username) : Extras.GetAdverts();
             //Add items to interface

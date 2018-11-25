@@ -20,10 +20,14 @@ namespace HomeCook
                 {
                     user.Text = logedUser.Username;
                     email.Text = logedUser.Email;
-                    location.Text = logedUser.Location;
-                    shellfish.Checked = logedUser.Preferences.GetPref("shellfish");
-                    gluten.Checked = logedUser.Preferences.GetPref("gluten");
-                    lactose.Checked = logedUser.Preferences.GetPref("lactose");
+                    if (location.Text == "")
+                        location.Text = logedUser.Location;
+                    if (shellfish.Checked == logedUser.Preferences.GetPref("shellfish"))
+                        shellfish.Checked = logedUser.Preferences.GetPref("shellfish");
+                    if (gluten.Checked == logedUser.Preferences.GetPref("gluten"))
+                        gluten.Checked = logedUser.Preferences.GetPref("gluten");
+                    if (lactose.Checked == logedUser.Preferences.GetPref("lactose"))
+                        lactose.Checked = logedUser.Preferences.GetPref("lactose");
                 }
             }
             catch
@@ -36,32 +40,31 @@ namespace HomeCook
 
         protected void SaveCanges_Click(object sender, EventArgs e)
         {
+            User newValue = logedUser;
+
             if (password.Text != "" && passRepeat.Text != "")
-            {
-                User newValue = logedUser;
-
-                Preferences prefs = new Preferences();
-                prefs.SetPref("shellfish", shellfish.Checked);
-                prefs.SetPref("gluten", gluten.Checked);
-                prefs.SetPref("lactose", lactose.Checked);
-
-                newValue.Preferences = prefs;
                 newValue.Password = password.Text;
-                if (location.Text != "")
-                    newValue.Location = location.Text;
 
-                try
+            Preferences prefs = new Preferences();
+            prefs.SetPref("shellfish", shellfish.Checked);
+            prefs.SetPref("gluten", gluten.Checked);
+            prefs.SetPref("lactose", lactose.Checked);
+
+            newValue.Preferences = prefs;
+
+            if (location.Text != "")
+                newValue.Location = location.Text;
+
+            try
+            {
+                Extras.ModifyUser(newValue);
+            }
+            catch (Exception ex)
+            {
+                if (ex.GetType() == typeof(SqliteException))
                 {
-                    Extras.ModifyUser(newValue);
-                }
-                catch (Exception ex)
-                {
-                    if (ex.GetType() == typeof(SqliteException))
-                    {
 
-                    }
                 }
-
             }
             //else if ()
             //{

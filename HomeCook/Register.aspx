@@ -6,20 +6,23 @@
             Rellena los campos para poder completar el registro.
         </div>
         <br />
-        <div style="margin: 0 50px; width: 300px">
+        <div style="margin: 0 50px; width: 500px">
             Nombre de usuario
             <br />
             <asp:TextBox ID="user" runat="server" Width="200px"></asp:TextBox>
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="user" runat="server" ForeColor="Crimson" ErrorMessage="Campo obligatorio"></asp:RequiredFieldValidator>
             <br />
             <br />
             Correo electrónico
             <br />
             <asp:TextBox ID="email" runat="server" Width="200px"></asp:TextBox>
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="email" runat="server" ForeColor="Crimson" ErrorMessage="Campo obligatorio"></asp:RequiredFieldValidator>
             <br />
             <br />
             Contraseña
             <br />
             <asp:TextBox ID="password" TextMode="Password" runat="server" Width="200px"></asp:TextBox>
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="password" runat="server" ForeColor="Crimson" ErrorMessage="Campo obligatorio"></asp:RequiredFieldValidator>
             <br />
             <br />
             Localización

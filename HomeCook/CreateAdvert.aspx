@@ -6,20 +6,23 @@
             Rellena los campos para poder completar la creación del anuncio.
         </div>
         <br />
-        <div style="margin: 0 50px; width: 300px">
+        <div style="margin: 0 50px; width: 500px">
             Nombre del plato
             <br />
             <asp:TextBox ID="name" runat="server" Width="200px"></asp:TextBox>
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator1" ControlToValidate="name" runat="server" ForeColor="Crimson" ErrorMessage="Campo obligatorio"></asp:RequiredFieldValidator>
             <br />
             <br />
             Description
             <br />
             <asp:TextBox ID="details" runat="server" Width="200px" Height="50px"></asp:TextBox>
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator2" ControlToValidate="details" runat="server" ForeColor="Crimson" ErrorMessage="Campo obligatorio"></asp:RequiredFieldValidator>
             <br />
             <br />
             Cantidad de porciones
             <br />
             <asp:TextBox ID="porciones" TextMode="Number" runat="server" Width="200px" Height="50px"></asp:TextBox>
+            <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="porciones" runat="server" ForeColor="Crimson" ErrorMessage="Campo obligatorio"></asp:RequiredFieldValidator>
             <br />
             <br />
             Alérgenos (marca los alérgenos que contenga tu plato)
