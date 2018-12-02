@@ -3,6 +3,8 @@ using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Net.Mail;
 using System.Security.Principal;
 using System.Web;
@@ -492,5 +494,162 @@ namespace HomeCook.Clases
             res = res + ".";
             return res;
         }
+
+        internal List<Advert> SortAdverts(List<Advert> adverts, User logedUser, string order)
+        {
+            List<string> aux = new List<string>();
+            //Recibe una lista no ordenada y coge todas las localizaciones, obtiene sus coordenadas (o las tiene ya) y llama a la api para que calcule las distancias.
+            //Una vez hecho eso reordena la lista en orden creciente y la devuelve.
+            //Obtener las coordenadas a partir de la posición:
+            //http://dev.virtualearth.net/REST/v1/Locations?countryRegion=countryRegion&adminDistrict=adminDistrict&locality=locality&postalCode=postalCode&addressLine=addressLine&userLocation=userLocation&userIp=userIp&usermapView=usermapView&includeNeighborhood=includeNeighborhood&maxResults=maxResults&key=BingMapsKey
+            //Obtener la distancia a partir de las coordenadas:
+            //https://dev.virtualearth.net/REST/v1/Routes/DistanceMatrix?key=BingMapsKey
+            /** Headers: 
+             *  Content-Length: insertLengthOfHTTPBody
+             *  Content-Type: application/json
+             *  
+             * Body:
+                {
+                "origins": [{
+                        "latitude": lat0,
+                        "longitude": lon0
+                    },
+                    {
+                        "latitude": latM,
+                        "longitude": lonM
+                    }],
+                "destinations": [{
+                        "latitude": lat0,
+                        "longitude": lon0
+                    }, 
+                    {
+                        "latitude": latN,
+                        "longitude": lonN
+                    }],
+                "travelMode": travelMode,
+                "startTime": startTime,
+                "timeUnit": timeUnit
+            }
+            */
+
+            if (order == "location")
+            {
+                const string URL = "http://dev.virtualearth.net/REST/v1/Locations";
+                //string urlParameters = "?countryRegion=ES&locality=" + localty;
+                string urlParameters = "";
+                HttpClient client = new HttpClient
+                {
+                    BaseAddress = new Uri(URL)
+                };
+                HttpResponseMessage response;
+                string userCoords = "";
+
+                client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
+
+                foreach (Advert adv in adverts)
+                {
+                    urlParameters = "?countryRegion=ES&locality=" + adv.Owner.Location + "&key=AipUQ3Ww50UBrNUG5_ZU7mr52kwVceKpGTOhEZyb8lFs1H3GGfVTt7c3jHgpQQ_t";
+
+                    response = client.GetAsync(urlParameters).Result;  // Blocking call! Program will wait here until a response is received or a timeout occurs.
+                    if (response.IsSuccessStatusCode)
+                    {
+                        // Parse the response body.
+                        var locationResponse = response.Content.ReadAsAsync<IEnumerable<LocationResponse>>().Result;  //Make sure to add a reference to System.Net.Http.Formatting.dll
+                        foreach (var d in locationResponse)
+                        {
+                            aux.Add(d.ResourceSets[0].Point.Coordinates[0] + "," + d.ResourceSets[0].Point.Coordinates[1]);
+                            //Console.WriteLine("{0}, {1}", d.ResourceSets[0].Point.Coordinates[0], d.ResourceSets[0].Point.Coordinates[1]);
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("{0} ({1})", (int)response.StatusCode, response.ReasonPhrase);
+                    }
+
+                }
+
+                //Coordenadas del usuario
+                urlParameters = "?countryRegion=ES&locality=" + logedUser.Location + "&key=AipUQ3Ww50UBrNUG5_ZU7mr52kwVceKpGTOhEZyb8lFs1H3GGfVTt7c3jHgpQQ_t";
+
+                response = client.GetAsync(urlParameters).Result;  // Blocking call! Program will wait here until a response is received or a timeout occurs.
+                if (response.IsSuccessStatusCode)
+                {
+                    // Parse the response body.
+                    var locationResponse = response.Content.ReadAsAsync<IEnumerable<LocationResponse>>().Result;
+                    foreach (var d in locationResponse)
+                    {
+                        userCoords = d.ResourceSets[0].Point.Coordinates[0] + "," + d.ResourceSets[0].Point.Coordinates[1];
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("{0} ({1})", (int)response.StatusCode, response.ReasonPhrase);
+                }
+
+                //Make any other calls using HttpClient here.
+                urlParameters = "?origins=" + userCoords + "&destinations=";
+                for (int i = 0; i < aux.Count; i++)
+                {
+                    if (i == 0)
+                        urlParameters += aux[i];
+                    else
+                        urlParameters += ";" + aux[i];
+                }
+                urlParameters += "&travelMode=driving&key=AipUQ3Ww50UBrNUG5_ZU7mr52kwVceKpGTOhEZyb8lFs1H3GGfVTt7c3jHgpQQ_t";
+
+
+                response = client.GetAsync(urlParameters).Result;  // Blocking call! Program will wait here until a response is received or a timeout occurs.
+                if (response.IsSuccessStatusCode)
+                {
+                    // Parse the response body.
+                    var locationResponse = response.Content.ReadAsAsync<IEnumerable<LocationResponse>>().Result;
+                    foreach (var d in locationResponse)
+                    {
+                        userCoords = d.ResourceSets[0].Point.Coordinates[0] + "," + d.ResourceSets[0].Point.Coordinates[1];
+                    }
+                }
+                else
+                {
+                    Console.WriteLine("{0} ({1})", (int)response.StatusCode, response.ReasonPhrase);
+                }
+
+                //Dispose once all HttpClient calls are complete. This is not necessary if the containing object will be disposed of; for example in this case the HttpClient instance will be disposed automatically when the application terminates so the following call is superfluous.
+                client.Dispose();
+            }
+            
+
+            return adverts;
+        }
+
+    }
+
+    internal class LocationResponse
+    {
+        public List<ResourceSets> ResourceSets { get; internal set; }
+    }
+
+    internal class ResourceSets
+    {
+        //public string Bbox { get; internal set; }
+        //public string Name { get; internal set; }
+        public Point Point { get; internal set; }
+        public List<Resources> Resources { get; internal set; }
+        //public string Address { get; internal set; }
+    }
+
+    public class Resources
+    {
+        public List<Results> Results { get; internal set; }
+    }
+
+    public class Results
+    {
+        public string TravelDistance { get; internal set; }
+    }
+
+    internal class Point
+    {
+        //public string Type { get; internal set; }
+        public List<string> Coordinates { get; internal set; }
     }
 }

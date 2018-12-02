@@ -22,7 +22,7 @@
     </div>
     <br />
     <div>
-        <asp:Button CssClass="btn btn-primary" style="float:left" Text="Nuevo usuario" runat="server" OnClick="NewUser_Click"/>
+        <asp:Button CssClass="btn btn-primary" style="float:left" Text="Nuevo usuario" CausesValidation="false" runat="server" OnClick="NewUser_Click"/>
         <asp:Button CssClass="btn btn-primary" style="float:right" Text="Acceder" runat="server" OnClick="Login_Click"/>
     </div>
     </div>

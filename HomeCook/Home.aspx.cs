@@ -24,7 +24,6 @@ namespace HomeCooked
             //bool alerg = (Request.QueryString["alerg"]?.ToString() == "true");
             //string location = Request.QueryString["localizacion"]?.ToString();
 
-
             if (name != null)
             {
 
