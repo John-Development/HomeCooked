@@ -31,5 +31,10 @@ namespace HomeCook
             }
 
         }
+
+        protected void Cancel_Click(object sender, EventArgs e)
+        {
+            Response.Redirect("/Adverts");
+        }
     }
 }

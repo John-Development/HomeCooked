@@ -45,7 +45,7 @@ namespace HomeCooked
             //}
 
             //Load list of user adverts
-            globalAdverts = (logedUser != null) ? Extras.GetAdverts(logedUser.Username) : Extras.GetAdverts();
+            globalAdverts = (logedUser != null) ? Extras.SortAdverts(Extras.GetAdverts(logedUser.Username), logedUser, "location") : Extras.GetAdverts();
             //Add items to interface
             ListarAnuncios(globalAdverts);
         }
