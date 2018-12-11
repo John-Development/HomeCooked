@@ -183,6 +183,7 @@
     <Content Include="Content\bootstrap.min.css.map" />
     <Content Include="Scripts\bootstrap.js" />
     <Content Include="Scripts\bootstrap.min.js" />
+    <Content Include="Chats.aspx" />
     <None Include="Scripts\jquery-3.3.1.intellisense.js" />
     <Content Include="Scripts\jquery-3.3.1.js" />
     <Content Include="Scripts\jquery-3.3.1.min.js" />
@@ -227,6 +228,7 @@
     <Compile Include="App_Start\BundleConfig.cs" />
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Clases\Advert.cs" />
+    <Compile Include="Clases\Chat.cs" />
     <Compile Include="Clases\Extras.cs" />
     <Compile Include="Clases\Preferences.cs" />
     <Compile Include="CreateAdvert.aspx.cs">
@@ -289,6 +291,13 @@
     </Compile>
     <Compile Include="ViewSwitcher.ascx.designer.cs">
       <DependentUpon>ViewSwitcher.ascx</DependentUpon>
+    </Compile>
+    <Compile Include="Chats.aspx.cs">
+      <DependentUpon>Chats.aspx</DependentUpon>
+      <SubType>ASPXCodeBehind</SubType>
+    </Compile>
+    <Compile Include="Chats.aspx.designer.cs">
+      <DependentUpon>Chats.aspx</DependentUpon>
     </Compile>
   </ItemGroup>
   <ItemGroup>

@@ -18,6 +18,7 @@ namespace HomeCook.Clases
     {
         internal static bool IsValidate(string id)
         {
+            bool res = true;
             using (SqliteConnection db = new SqliteConnection("Filename=DB.db"))
             {
                 //Tabla de Usuarios
@@ -31,7 +32,7 @@ namespace HomeCook.Clases
 
                     while (query.Read())
                     {
-                        return false;
+                        res = false;
                     }
                 }
                 catch (SqliteException)
@@ -40,7 +41,7 @@ namespace HomeCook.Clases
                 }
                 db.Close();
             }
-            return true;
+            return res;
         }
 
         internal static User Login(string user, string password)
@@ -122,6 +123,35 @@ namespace HomeCook.Clases
             return logedUser;
         }
 
+        internal static Advert GetAdvert(int id)
+        {
+            Advert advert = new Advert();
+
+            using (SqliteConnection db = new SqliteConnection("Filename=DB.db"))
+            {
+                db.Open();
+                string tableCommand = "SELECT * FROM Products WHERE ID = @id";
+                SqliteCommand getAdvert = new SqliteCommand(tableCommand, db);
+                getAdvert.Parameters.AddWithValue("@id", id);
+                try
+                {
+                    SqliteDataReader query = getAdvert.ExecuteReader();
+
+                    while (query.Read())
+                    {
+                        advert = new Advert(query.GetInt32(0), query.GetString(1), query.GetString(2), GetUser(query.GetString(3)), query.GetString(4), query.GetInt32(5), new Preferences(query.GetString(6)), (query.GetInt32(7) == 1));
+                    }
+                }
+                catch (SqliteException)
+                {
+                    //Do nothing
+                }
+                db.Close();
+            }
+
+            return advert;
+        }
+
         internal static List<Advert> GetAdverts()
         {
             List<Advert> adverts = new List<Advert>();
@@ -157,6 +187,7 @@ namespace HomeCook.Clases
             return adverts;
         }
 
+        //Obtiene todos los anuncios que no sean del usuario
         internal static List<Advert> GetAdverts(string username)
         {
             List<Advert> adverts = new List<Advert>();
@@ -193,6 +224,7 @@ namespace HomeCook.Clases
             return adverts;
         }
 
+        //Obtiene anuncion del usuario
         internal static List<Advert> GetAdverts(User logedUser)
         {
             List<Advert> adverts = new List<Advert>();
@@ -653,6 +685,102 @@ namespace HomeCook.Clases
             }
 
             return advRes;
+        }
+
+        internal static void CreateChat(Chat chat)
+        {
+            if (!ChatExists(chat))
+                using (SqliteConnection db = new SqliteConnection("Filename=DB.db"))
+                {
+                    //Tabla de Usuarios
+                    db.Open();
+                    //ID Name Details Vendor Image Portions Preferences
+                    string tableCommand;
+                    if (chat.Rank != null)
+                        tableCommand = "INSERT INTO Chats (AdvertID, Vendor, Buyer, State, Date, Quantity, Ranking, Data) " +
+                                "VALUES (@advertID, @vendor, @buyer, @state, @date, @quantity, @ranking, @data)";
+                    tableCommand = "INSERT INTO Chats (AdvertID, Vendor, Buyer, State, Date, Quantity, Data) " +
+                            "VALUES (@advertID, @vendor, @buyer, @state, @date, @quantity, @data)";
+                    SqliteCommand setChat = new SqliteCommand(tableCommand, db);
+                    setChat.Parameters.AddWithValue("@advertID", chat.AdvertID);
+                    setChat.Parameters.AddWithValue("@vendor", chat.Vendor);
+                    setChat.Parameters.AddWithValue("@buyer", chat.Buyer);
+                    setChat.Parameters.AddWithValue("@state", chat.State);
+                    setChat.Parameters.AddWithValue("@date", chat.Date.ToString("dd-MM-yyyy"));
+                    setChat.Parameters.AddWithValue("@quantity", chat.Quantity);
+                    if (chat.Rank != null)
+                        setChat.Parameters.AddWithValue("@ranking", chat.Rank);
+                    setChat.Parameters.AddWithValue("@data", chat.Data);
+
+                    try
+                    {
+                        setChat.ExecuteReader();
+                    }
+                    catch (SqliteException ex)
+                    {
+                        throw ex;
+                    }
+                    db.Close();
+                }
+        }
+
+        private static bool ChatExists(Chat chat)
+        {
+            bool res = false;
+            using (SqliteConnection db = new SqliteConnection("Filename=DB.db"))
+            {
+                db.Open();
+                string tableCommand = "SELECT * FROM Chats WHERE AdvertID = @advertID AND Vendor = @vendor AND Buyer = @buyer";
+                SqliteCommand getChats = new SqliteCommand(tableCommand, db);
+                getChats.Parameters.AddWithValue("@advertID", chat.AdvertID);
+                getChats.Parameters.AddWithValue("@vendor", chat.Vendor);
+                getChats.Parameters.AddWithValue("@buyer", chat.Buyer);
+                try
+                {
+                    SqliteDataReader query = getChats.ExecuteReader();
+
+                    while (query.Read())
+                    {
+                        res = true;
+                    }
+                }
+                catch (SqliteException)
+                {
+                    //Do nothing
+                }
+                db.Close();
+            }
+
+            return res;
+        }
+
+        internal static List<Chat> GetChats(User logedUser)
+        {
+            List<Chat> chats = new List<Chat>();
+
+            using (SqliteConnection db = new SqliteConnection("Filename=DB.db"))
+            {
+                db.Open();
+                string tableCommand = "SELECT * FROM Chats WHERE Vendor = @User OR Buyer = @User";
+                SqliteCommand getChats = new SqliteCommand(tableCommand, db);
+                getChats.Parameters.AddWithValue("@User", logedUser.Username);
+                try
+                {
+                    SqliteDataReader query = getChats.ExecuteReader();
+
+                    while (query.Read())
+                    {
+                        chats.Add(new Chat(query.GetInt32(0), query.GetInt32(1), query.GetString(2), query.GetString(3), query.GetBoolean(4), query.GetDateTime(5), query.GetInt32(6), query.IsDBNull(7) ? null : query.GetString(7), query.GetString(8)));
+                    }
+                }
+                catch (SqliteException)
+                {
+                    //Do nothing
+                }
+                db.Close();
+            }
+
+            return chats; //.OrderBy(x => x.Vendor).ToList();
         }
     }
 }

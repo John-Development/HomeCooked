@@ -55,6 +55,25 @@ namespace HomeCook
                 }
                 db.Close();
 
+                //Tabla de Chats
+
+                db.Open();
+                string tableCommandChats = "CREATE TABLE IF NOT EXISTS Chats (ID INTEGER PRIMARY KEY, AdvertID INTEGER, Vendor NVARCHAR(2048), " +
+                    "Buyer NVARCHAR(2048), State INTEGER, Date NVARCHAR(2048), Quantity INTEGER, Ranking NVARCHAR(2048), Data NVARCHAR(2048), " +
+                    "FOREIGN KEY(AdvertID) REFERENCES Products(ID), FOREIGN KEY(Buyer) REFERENCES Users(Username), " +
+                    "FOREIGN KEY(Vendor) REFERENCES Users(Username))";
+                //string tableCommandProducts = "DROP TABLE IF EXISTS Users";
+                SqliteCommand createTableChats = new SqliteCommand(tableCommandChats, db);
+                try
+                {
+                    createTableChats.ExecuteReader();
+                }
+                catch (SqliteException)
+                {
+                    //Do nothing
+                }
+                db.Close();
+
                 ////Tabla de MARCADORES
 
                 //db.Open();

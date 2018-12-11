@@ -57,11 +57,17 @@ namespace HomeCooked
 
         protected void Advert_click(object sender, EventArgs e)
         {
-            //activate or deactivate the advert
-            //int id = int.Parse(((Button)sender).Parent.ID);
-            //bool active = Extras.IsAdvertActive(id);
-            //Extras.ModifyAdvert(id, !active);
-            //((Button)sender).Text = active ? "Activar anuncio" : "Desactivar anuncio";
+            //Abre un chat con el vendedor.
+
+            //Lee el id del anuncio
+            int id = int.Parse(((LinkButton)sender).ID);
+            Advert adv = Extras.GetAdvert(id);
+
+            //Crea la entrada en la tabla de chats
+            Extras.CreateChat(new Chat(id, adv.Owner.Username, logedUser.Username, true, DateTime.Now, adv.Portions, adv.Owner.Rank, ""));
+            
+            //Luego redirige a la página de chats
+            Response.Redirect("/Chats");
         }
 
         private void ListarAnuncios(List<Advert> userAdverts)
@@ -93,6 +99,7 @@ namespace HomeCooked
                 elementLinkButton.Style.Add(HtmlTextWriterStyle.Height, "100px");
                 elementLinkButton.Style.Add(HtmlTextWriterStyle.Width, "700px");
                 elementLinkButton.Click += new EventHandler(Advert_click);
+                elementLinkButton.ID = userAdverts[i].ID.ToString();
 
                 HtmlGenericControl elementDiv = new HtmlGenericControl("div");
                 elementDiv.Style.Add(HtmlTextWriterStyle.Height, "100px");
@@ -135,18 +142,11 @@ namespace HomeCooked
                 alergDiv.InnerHtml = extras.Preferences(userAdverts[i].Preferences);
 
                 //Botones
-                HtmlGenericControl bloque2_2Div = new HtmlGenericControl("div");
-                bloque2_2Div.Style.Add("width", "150px");
-                bloque2_2Div.Style.Add("height", "100px");
-                bloque2_2Div.Style.Add("float", "right");
-                bloque2_2Div.ID = userAdverts[i].ID.ToString();
-
-
-                //Button b2Div = new Button();
-                //b2Div.Attributes["class"] = "btn btn-primary";
-                //b2Div.Click += new EventHandler(Button2_click);
-                //b2Div.Attributes["style"] = "height:50px; width: 150px; background-color: crimson";
-                //b2Div.Text = "Borrar anuncio";
+                //HtmlGenericControl bloque2_2Div = new HtmlGenericControl("div");
+                //bloque2_2Div.Style.Add("width", "150px");
+                //bloque2_2Div.Style.Add("height", "100px");
+                //bloque2_2Div.Style.Add("float", "right");
+                //bloque2_2Div.ID = userAdverts[i].ID.ToString();
 
                 //Jerarquía elementDiv
                 elementDiv.Controls.Add(elementLinkButton);
@@ -157,7 +157,7 @@ namespace HomeCooked
                 bloque2Div.Controls.Add(bloque2_1Div);
                 bloque2_1Div.Controls.Add(descDiv);
                 bloque2_1Div.Controls.Add(alergDiv);
-                bloque2Div.Controls.Add(bloque2_2Div);
+                //bloque2Div.Controls.Add(bloque2_2Div);
                 //bloque2_2Div.Controls.Add(b2Div);
 
                 elements.Controls.Add(elementDiv);

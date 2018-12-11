@@ -35,6 +35,7 @@ namespace HomeCook.Clases
         {
             throw new NotImplementedException();
         }
+
         public override string ToString()
         {
             return JsonConvert.SerializeObject(this);
