@@ -16,8 +16,8 @@ namespace HomeCook
         private User logedUser;
         private List<Chat> chats;
         private Extras extras = new Extras();
-        private JObject jsonChat;
-        private Chat chat;
+        //private JObject jsonChat;
+        //private Chat chat;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -37,11 +37,12 @@ namespace HomeCook
             //activate or deactivate the advert
             int id = int.Parse(((LinkButton)sender).ID);
             //bool active = Extras.IsAdvertActive(id);
-            chat = Extras.GetChat(id);
+            Session["chatID"] = id;
+            Chat chat = Extras.GetChat(id);
 
             //Lee el objeto chat e interpreta el campo mensaje 
-            Session["jsonChat"] = JsonConvert.DeserializeObject<JObject>(chat.Data);
-            jsonChat = JsonConvert.DeserializeObject<JObject>(chat.Data);
+            //Session["jsonChat"] = JsonConvert.DeserializeObject<JObject>(((Chat)Session["chat"]).Data);
+            //jsonChat = JsonConvert.DeserializeObject<JObject>(chat.Data);
 
             /**
              * {
@@ -68,13 +69,13 @@ namespace HomeCook
              * 
              */
             
-            for (int i = 0; i < int.Parse(jsonChat.GetValue("Messages").ToString()); i++)
+            for (int i = 0; i < int.Parse(((JObject)chat.Data).GetValue("Messages").ToString()); i++)
             {
                 HtmlGenericControl msgDiv = new HtmlGenericControl("div");
                 msgDiv.Style.Add(HtmlTextWriterStyle.Height, "20px");
                 msgDiv.Style.Add("max-width", "400px");
                 msgDiv.Style.Add(HtmlTextWriterStyle.Margin, "5px");
-                if (((JObject)((JArray)jsonChat.GetValue("History"))[i]).GetValue("from").ToString() == logedUser.Username)
+                if (((JObject)((JArray)((JObject)chat.Data).GetValue("History"))[i]).GetValue("from").ToString() == logedUser.Username)
                 {
                     msgDiv.Style.Add("background-color", "aliceblue");
                     msgDiv.Style.Add("float", "right");
@@ -84,7 +85,7 @@ namespace HomeCook
                     msgDiv.Style.Add("background-color", "antiquewhite");
                     msgDiv.Style.Add("float", "left");
                 }
-                msgDiv.InnerText = ((JObject)((JArray)jsonChat.GetValue("History"))[i]).GetValue("message").ToString();
+                msgDiv.InnerText = ((JObject)((JArray)((JObject)chat.Data).GetValue("History"))[i]).GetValue("message").ToString();
 
                 messages.Controls.Add(msgDiv);
             }
@@ -140,13 +141,29 @@ namespace HomeCook
         protected void Unnamed_Click(object sender, EventArgs e)
         {
             //Incrementa el campo de numero de mensajes y agrega a la lista de historial el nuevo mensaje
-            ((JObject)Session["jsonChat"])["Messages"] = ((JObject)Session["jsonChat"]).GetValue("Messages");
-            ((JArray)((JObject)Session["jsonChat"])["History"]).Add(new JObject()
+            Chat chat = Extras.GetChat(((Chat)Session["chatID"]).ChatID);
+
+            JObject jsonChat = JsonConvert.DeserializeObject<JObject>(chat.Data);
+            int msgCant = (int)JsonConvert.DeserializeObject<JObject>(chat.Data).GetValue("Messages");
+            JArray history = (JArray)JsonConvert.DeserializeObject<JObject>(chat.Data)["History"];
+            history.Add(new JObject()
             {
                 { "from", logedUser.Username },
                 { "message", message.Text }
             });
-            chat.Data = ((JObject)Session["jsonChat"]).ToString();
+
+            chat.Data = (string)jsonChat;
+            Extras.UpdateChat(chat);
+
+            HtmlGenericControl msgDiv = new HtmlGenericControl("div");
+            msgDiv.Style.Add(HtmlTextWriterStyle.Height, "20px");
+            msgDiv.Style.Add("max-width", "400px");
+            msgDiv.Style.Add(HtmlTextWriterStyle.Margin, "5px");
+            msgDiv.Style.Add("background-color", "aliceblue");
+            msgDiv.Style.Add("float", "right");
+            msgDiv.InnerText = message.Text;
+
+            messages.Controls.Add(msgDiv);
         }
     }
 }

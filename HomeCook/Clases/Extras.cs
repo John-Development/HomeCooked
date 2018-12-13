@@ -821,5 +821,27 @@ namespace HomeCook.Clases
             return chat;
         }
 
+        internal static void UpdateChat(Chat chat)
+        {
+            using (SqliteConnection db = new SqliteConnection("Filename=DB.db"))
+            {
+                //Tabla de Usuarios
+                db.Open();
+
+                string tableCommand = "UPDATE Chats SET Data = @data WHERE ID = @id";
+                SqliteCommand updateChat = new SqliteCommand(tableCommand, db);
+                updateChat.Parameters.AddWithValue("@data", chat.Data);
+                updateChat.Parameters.AddWithValue("@id", chat.ChatID);
+                try
+                {
+                    updateChat.ExecuteReader();
+                }
+                catch (SqliteException ex)
+                {
+                    throw ex;
+                }
+                db.Close();
+            }
+        }
     }
 }
