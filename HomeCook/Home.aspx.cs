@@ -1,5 +1,7 @@
 ﻿using HomeCook;
 using HomeCook.Clases;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -64,8 +66,14 @@ namespace HomeCooked
             Advert adv = Extras.GetAdvert(id);
 
             //Crea la entrada en la tabla de chats
-            Extras.CreateChat(new Chat(id, adv.Owner.Username, logedUser.Username, true, DateTime.Now, adv.Portions, adv.Owner.Rank, ""));
-            
+            JObject data = new JObject
+            {
+                { "Messages", 0 },
+                { "History", new JArray() }
+            };
+
+            Extras.CreateChat(new Chat(id, adv.Owner.Username, logedUser.Username, true, DateTime.Now, adv.Portions, adv.Owner.Rank, JsonConvert.SerializeObject(data)));
+
             //Luego redirige a la página de chats
             Response.Redirect("/Chats");
         }

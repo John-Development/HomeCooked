@@ -220,6 +220,17 @@ namespace HomeCook.Clases
             {
                 adverts[i].Owner = GetUser(users[i]);
             }
+            User logedUser = GetUser(username);
+            for (int i = 0; i < users.Count(); i++)
+            {
+                Preferences prefs = adverts[i].Preferences;
+                if ((prefs.GetPref("lactose") == logedUser.Preferences.GetPref("lactose") && prefs.GetPref("lactose") == true)
+                    || (prefs.GetPref("gluten") == logedUser.Preferences.GetPref("gluten") && prefs.GetPref("gluten") == true)
+                    || (prefs.GetPref("shellfish") == logedUser.Preferences.GetPref("shellfish") && prefs.GetPref("shellfish") == true))
+                    adverts.RemoveAt(i);
+                else
+                    adverts[i].Owner = GetUser(users[i]);
+            }
 
             return adverts;
         }
@@ -782,5 +793,33 @@ namespace HomeCook.Clases
 
             return chats; //.OrderBy(x => x.Vendor).ToList();
         }
+
+        internal static Chat GetChat(int id)
+        {
+            Chat chat = null;
+            using (SqliteConnection db = new SqliteConnection("Filename=DB.db"))
+            {
+                db.Open();
+                string tableCommand = "SELECT * FROM Chats WHERE ID = @ID";
+                SqliteCommand getChats = new SqliteCommand(tableCommand, db);
+                getChats.Parameters.AddWithValue("@ID", id);
+                try
+                {
+                    SqliteDataReader query = getChats.ExecuteReader();
+
+                    while (query.Read())
+                    {
+                        chat = new Chat(query.GetInt32(0), query.GetInt32(1), query.GetString(2), query.GetString(3), query.GetBoolean(4), query.GetDateTime(5), query.GetInt32(6), query.IsDBNull(7) ? null : query.GetString(7), query.GetString(8));
+                    }
+                }
+                catch (SqliteException)
+                {
+                    //Do nothing
+                }
+                db.Close();
+            }
+            return chat;
+        }
+
     }
 }

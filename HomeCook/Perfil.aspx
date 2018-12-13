@@ -36,9 +36,9 @@
             <br />
             Alérgenos (marca si eres alérgico)
             <br />
-            <asp:CheckBox ID="shellfish" runat="server" Text="Marisco"/>
-            <asp:CheckBox ID="gluten" runat="server" Text="Gluten"/>
-            <asp:CheckBox ID="lactose" runat="server" Text="Lactosa"/>
+            <asp:CheckBox ID="shellfish" runat="server" Text="Marisco" OnCheckedChanged="Shellfish_CheckedChanged"/>
+            <asp:CheckBox ID="gluten" runat="server" Text="Gluten" OnCheckedChanged="Gluten_CheckedChanged"/>
+            <asp:CheckBox ID="lactose" runat="server" Text="Lactosa" OnCheckedChanged="Lactose_CheckedChanged"/>
             <br />
         </div>
         <br />

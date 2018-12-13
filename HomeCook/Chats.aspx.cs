@@ -1,4 +1,6 @@
 ﻿using HomeCook.Clases;
+using Newtonsoft.Json;
+using Newtonsoft.Json.Linq;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -14,6 +16,8 @@ namespace HomeCook
         private User logedUser;
         private List<Chat> chats;
         private Extras extras = new Extras();
+        private JObject jsonChat;
+        private Chat chat;
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -29,11 +33,61 @@ namespace HomeCook
 
         protected void Chat_click(object sender, EventArgs e)
         {
+
             //activate or deactivate the advert
-            //int id = int.Parse(((Button)sender).Parent.ID);
+            int id = int.Parse(((LinkButton)sender).ID);
             //bool active = Extras.IsAdvertActive(id);
-            //Extras.ModifyAdvert(id, !active);
-            //((Button)sender).Text = active ? "Activar anuncio" : "Desactivar anuncio";
+            chat = Extras.GetChat(id);
+
+            //Lee el objeto chat e interpreta el campo mensaje 
+            Session["jsonChat"] = JsonConvert.DeserializeObject<JObject>(chat.Data);
+            jsonChat = JsonConvert.DeserializeObject<JObject>(chat.Data);
+
+            /**
+             * {
+             * "Messages": 0,
+             * "History":[ From older to newer
+             *      {
+             *      "from": "",
+             *      "message": ""
+             *      },
+             *      {
+             *      "from": "",
+             *      "message": ""
+             *      },
+             *      {
+             *      "from": "",
+             *      "message": ""
+             *      },
+             *      {
+             *      "from": "",
+             *      "message": ""
+             *      }
+             * ]
+             * }
+             * 
+             */
+            
+            for (int i = 0; i < int.Parse(jsonChat.GetValue("Messages").ToString()); i++)
+            {
+                HtmlGenericControl msgDiv = new HtmlGenericControl("div");
+                msgDiv.Style.Add(HtmlTextWriterStyle.Height, "20px");
+                msgDiv.Style.Add("max-width", "400px");
+                msgDiv.Style.Add(HtmlTextWriterStyle.Margin, "5px");
+                if (((JObject)((JArray)jsonChat.GetValue("History"))[i]).GetValue("from").ToString() == logedUser.Username)
+                {
+                    msgDiv.Style.Add("background-color", "aliceblue");
+                    msgDiv.Style.Add("float", "right");
+                }
+                else
+                {
+                    msgDiv.Style.Add("background-color", "antiquewhite");
+                    msgDiv.Style.Add("float", "left");
+                }
+                msgDiv.InnerText = ((JObject)((JArray)jsonChat.GetValue("History"))[i]).GetValue("message").ToString();
+
+                messages.Controls.Add(msgDiv);
+            }
         }
 
         private void ListarChats(List<Chat> userChats)
@@ -81,6 +135,18 @@ namespace HomeCook
 
                 chatList.Controls.Add(elementDiv);
             }
+        }
+
+        protected void Unnamed_Click(object sender, EventArgs e)
+        {
+            //Incrementa el campo de numero de mensajes y agrega a la lista de historial el nuevo mensaje
+            ((JObject)Session["jsonChat"])["Messages"] = ((JObject)Session["jsonChat"]).GetValue("Messages");
+            ((JArray)((JObject)Session["jsonChat"])["History"]).Add(new JObject()
+            {
+                { "from", logedUser.Username },
+                { "message", message.Text }
+            });
+            chat.Data = ((JObject)Session["jsonChat"]).ToString();
         }
     }
 }

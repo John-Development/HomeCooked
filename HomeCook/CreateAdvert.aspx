@@ -22,6 +22,8 @@
             Cantidad de porciones
             <br />
             <asp:TextBox ID="porciones" TextMode="Number" runat="server" Width="200px" Height="50px"></asp:TextBox>
+            <%--<br />--%>
+            <asp:CustomValidator ID="CustomValidator1" runat="server" ErrorMessage="No se puede crear un anuncio con 0 unidades." ForeColor="Crimson" ControlToValidate="porciones" OnServerValidate="CustomValidator1_ServerValidate"></asp:CustomValidator>
             <asp:RequiredFieldValidator ID="RequiredFieldValidator3" ControlToValidate="porciones" runat="server" ForeColor="Crimson" ErrorMessage="Campo obligatorio"></asp:RequiredFieldValidator>
             <br />
             <br />

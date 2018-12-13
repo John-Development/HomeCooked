@@ -8,6 +8,7 @@ namespace HomeCook
     public partial class Perfil : Page
     {
         private User logedUser;
+        Preferences prefs = new Preferences();
 
         protected void Page_Load(object sender, EventArgs e)
         {
@@ -22,12 +23,12 @@ namespace HomeCook
                     email.Text = logedUser.Email;
                     if (location.Text == "")
                         location.Text = logedUser.Location;
-                    if (shellfish.Checked == logedUser.Preferences.GetPref("shellfish"))
-                        shellfish.Checked = logedUser.Preferences.GetPref("shellfish");
-                    if (gluten.Checked == logedUser.Preferences.GetPref("gluten"))
-                        gluten.Checked = logedUser.Preferences.GetPref("gluten");
-                    if (lactose.Checked == logedUser.Preferences.GetPref("lactose"))
-                        lactose.Checked = logedUser.Preferences.GetPref("lactose");
+                    //if (shellfish.Checked == logedUser.Preferences.GetPref("shellfish"))
+                    prefs.SetPref("shellfish", shellfish.Checked = logedUser.Preferences.GetPref("shellfish"));
+                    //if (gluten.Checked == logedUser.Preferences.GetPref("gluten"))
+                    prefs.SetPref("gluten", gluten.Checked = logedUser.Preferences.GetPref("gluten"));
+                    //if (lactose.Checked == logedUser.Preferences.GetPref("lactose"))
+                    prefs.SetPref("lactose", lactose.Checked = logedUser.Preferences.GetPref("lactose"));
                 }
             }
             catch
@@ -44,11 +45,6 @@ namespace HomeCook
 
             if (password.Text != "" && passRepeat.Text != "")
                 newValue.Password = password.Text;
-
-            Preferences prefs = new Preferences();
-            prefs.SetPref("shellfish", shellfish.Checked);
-            prefs.SetPref("gluten", gluten.Checked);
-            prefs.SetPref("lactose", lactose.Checked);
 
             newValue.Preferences = prefs;
 
@@ -90,6 +86,24 @@ namespace HomeCook
             }
 
             //ScriptManager.RegisterStartupScript(this, GetType(), "1", "showmodalpopup1();", true);
+        }
+
+        protected void Shellfish_CheckedChanged(object sender, EventArgs e)
+        {
+            shellfish.Checked = !shellfish.Checked;
+            prefs.SetPref("shellfish", !shellfish.Checked);
+        }
+
+        protected void Gluten_CheckedChanged(object sender, EventArgs e)
+        {
+            gluten.Checked = !gluten.Checked;
+            prefs.SetPref("gluten", gluten.Checked);
+        }
+
+        protected void Lactose_CheckedChanged(object sender, EventArgs e)
+        {
+            lactose.Checked = !lactose.Checked;
+            prefs.SetPref("lactose", lactose.Checked);
         }
     }
 }

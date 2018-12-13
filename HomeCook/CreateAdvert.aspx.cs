@@ -24,7 +24,7 @@ namespace HomeCook
             prefs.SetPref("gluten", gluten.Checked);
             prefs.SetPref("lactose", lactose.Checked);
 
-            if (name.Text != "" && details.Text != "" && porciones.Text != "")
+            if (name.Text != "" && details.Text != "" && porciones.Text != "" && int.Parse(porciones.Text) > 0)
             {
                 Extras.CreateAdvert(name.Text, details.Text, prefs, logedUser, int.Parse(porciones.Text), "");
                 Response.Redirect("/Adverts");
@@ -35,6 +35,11 @@ namespace HomeCook
         protected void Cancel_Click(object sender, EventArgs e)
         {
             Response.Redirect("/Adverts");
+        }
+
+        protected void CustomValidator1_ServerValidate(object source, ServerValidateEventArgs args)
+        {
+            args.IsValid = int.Parse(porciones.Text) > 0;
         }
     }
 }
