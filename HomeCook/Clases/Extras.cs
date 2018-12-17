@@ -221,21 +221,25 @@ namespace HomeCook.Clases
                 adverts[i].Owner = GetUser(users[i]);
             }
             User logedUser = GetUser(username);
-            for (int i = 0; i < users.Count(); i++)
+            for (int i = 0; i < adverts.Count(); i++)
             {
                 Preferences prefs = adverts[i].Preferences;
                 if ((prefs.GetPref("lactose") == logedUser.Preferences.GetPref("lactose") && prefs.GetPref("lactose") == true)
                     || (prefs.GetPref("gluten") == logedUser.Preferences.GetPref("gluten") && prefs.GetPref("gluten") == true)
                     || (prefs.GetPref("shellfish") == logedUser.Preferences.GetPref("shellfish") && prefs.GetPref("shellfish") == true))
+                {
+                    //users.Remove(adverts[i].Owner.Username);
                     adverts.RemoveAt(i);
-                else
-                    adverts[i].Owner = GetUser(users[i]);
+                }
+
+                //else
+                //    adverts[i].Owner = GetUser(users[i]);
             }
 
             return adverts;
         }
 
-        //Obtiene anuncion del usuario
+        //Obtiene anuncios del usuario
         internal static List<Advert> GetAdverts(User logedUser)
         {
             List<Advert> adverts = new List<Advert>();
@@ -588,7 +592,7 @@ namespace HomeCook.Clases
                 };
                 HttpResponseMessage response;
                 string userCoords = "";
-                string[] distanceMatrix = new string[adverts.Count()];
+                double[] distanceMatrix = new double[adverts.Count()];
 
                 client.DefaultRequestHeaders.Accept.Add(new MediaTypeWithQualityHeaderValue("application/json"));
 
@@ -660,7 +664,7 @@ namespace HomeCook.Clases
                         // Parse the response body.
                         JObject locationResponse = response.Content.ReadAsAsync<JObject>().Result;
                         for (int i = 0; i < distanceMatrix.Count(); i++)
-                            distanceMatrix[i] = locationResponse["resourceSets"][0]["resources"][0]["results"][i]["travelDistance"].ToString();
+                            distanceMatrix[i] = double.Parse(locationResponse["resourceSets"][0]["resources"][0]["results"][i]["travelDistance"].ToString());
                     }
                     else
                     {
@@ -676,7 +680,7 @@ namespace HomeCook.Clases
             return adverts;
         }
 
-        internal static List<Advert> SortAdverts(List<Advert> adverts, string[] order)
+        internal static List<Advert> SortAdverts(List<Advert> adverts, double[] order)
         {
             List<object[]> lista = new List<object[]>();
             List<Advert> advRes = new List<Advert>();
@@ -688,7 +692,7 @@ namespace HomeCook.Clases
                 lista.Add(obj);
             }
 
-            lista = lista.OrderBy(x => (string)x[0]).ToList();
+            lista = lista.OrderBy(x => (double)x[0]).ToList();
 
             for (int i = 0; i < lista.Count(); i++)
             {
@@ -842,6 +846,21 @@ namespace HomeCook.Clases
                 }
                 db.Close();
             }
+        }
+
+        internal static List<User> GetRanking(string filtro)
+        {
+            return null;
+        }
+
+        internal static List<Advert> GetAdverts(User user, string[] filtros, string[] valores)
+        {
+            return null;
+        }
+
+        internal static void UpdateRanking(int id, int valoracion)
+        {
+
         }
     }
 }

@@ -67,6 +67,7 @@
                         <%--<li><a runat="server" id="Offers" href="~/">Ofertas</a></li>--%>
                         <li><div style="margin: 12px"><asp:TextBox runat="server"/><a runat="server" id="Search" href="~/"> Buscar</a></div></li>
                         <li><a runat="server" id="Chat" href="~/Chats">Chat</a></li>
+                        <li><a runat="server" id="Ranking" href="~/Ranking">Ranking</a></li>
                         <li><a runat="server" id="Adverts" href="~/Adverts">Anuncios</a></li>
                         <li><a runat="server" id="Perfil" href="~/Perfil">Perfil</a></li>
                     </ul>

@@ -24,6 +24,12 @@ namespace HomeCook
             //Logued uer
             logedUser = (User)Session["logedUser"];
             //Busca los chats que haya abiertos de ese usuario
+            message.Visible = false;
+            send.Visible = false;
+            portions.Visible = false;
+            close.Visible = false;
+            label.Visible = false;
+
             if (logedUser != null)
                 ListarChats(chats = Extras.GetChats(logedUser));
             else
@@ -33,7 +39,11 @@ namespace HomeCook
 
         protected void Chat_click(object sender, EventArgs e)
         {
-
+            message.Visible = true;
+            send.Visible = true;
+            portions.Visible = true;
+            close.Visible = true;
+            label.Visible = true;
             //activate or deactivate the advert
             int id = int.Parse(((LinkButton)sender).ID);
             //bool active = Extras.IsAdvertActive(id);
@@ -69,13 +79,15 @@ namespace HomeCook
              * 
              */
             
-            for (int i = 0; i < int.Parse(((JObject)chat.Data).GetValue("Messages").ToString()); i++)
+            JObject jsonData = JsonConvert.DeserializeObject<JObject>(chat.Data);
+
+            for (int i = 0; i < int.Parse(jsonData.GetValue("Messages").ToString()); i++)
             {
                 HtmlGenericControl msgDiv = new HtmlGenericControl("div");
                 msgDiv.Style.Add(HtmlTextWriterStyle.Height, "20px");
                 msgDiv.Style.Add("max-width", "400px");
                 msgDiv.Style.Add(HtmlTextWriterStyle.Margin, "5px");
-                if (((JObject)((JArray)((JObject)chat.Data).GetValue("History"))[i]).GetValue("from").ToString() == logedUser.Username)
+                if (((JObject)((JArray)jsonData.GetValue("History"))[i]).GetValue("from").ToString() == logedUser.Username)
                 {
                     msgDiv.Style.Add("background-color", "aliceblue");
                     msgDiv.Style.Add("float", "right");
@@ -85,9 +97,10 @@ namespace HomeCook
                     msgDiv.Style.Add("background-color", "antiquewhite");
                     msgDiv.Style.Add("float", "left");
                 }
-                msgDiv.InnerText = ((JObject)((JArray)((JObject)chat.Data).GetValue("History"))[i]).GetValue("message").ToString();
-
+                msgDiv.InnerText = ((JObject)((JArray)jsonData.GetValue("History"))[i]).GetValue("message").ToString();
+                HtmlGenericControl br = new HtmlGenericControl("br");
                 messages.Controls.Add(msgDiv);
+                messages.Controls.Add(br);
             }
         }
 
@@ -107,16 +120,27 @@ namespace HomeCook
 
                 //Elemento
                 LinkButton elementLinkButton = new LinkButton();
-                elementLinkButton.Style.Add(HtmlTextWriterStyle.Height, "40px");
+                elementLinkButton.Style.Add(HtmlTextWriterStyle.Height, "50px");
                 elementLinkButton.Style.Add(HtmlTextWriterStyle.Width, "200px");
                 elementLinkButton.Click += new EventHandler(Chat_click);
                 elementLinkButton.ID = userChats[i].ChatID.ToString();
 
                 HtmlGenericControl elementDiv = new HtmlGenericControl("div");
-                elementDiv.Style.Add(HtmlTextWriterStyle.Height, "40px");
+                elementDiv.Style.Add(HtmlTextWriterStyle.Height, "50px");
                 elementDiv.Style.Add(HtmlTextWriterStyle.Width, "200px");
                 elementDiv.Style.Add(HtmlTextWriterStyle.Margin, "5px");
-                elementDiv.Style.Add("background-color", "aliceblue");
+                elementDiv.Attributes.Add("class", "btn btn-primary");
+
+                if (logedUser.Username == userChats[i].Vendor)
+                {
+                    elementDiv.Style.Add("background-color", "#F9F5CC");
+                    elementDiv.Style.Add("border-color", "orange");
+                    //elementDiv.Style.Add("color", "orange");
+                }
+                else
+                {
+                    elementDiv.Style.Add("background-color", "aliceblue");
+                }
 
                 HtmlGenericControl div1 = new HtmlGenericControl("div");
                 div1.Style.Add(HtmlTextWriterStyle.Height, "20px");
@@ -141,7 +165,7 @@ namespace HomeCook
         protected void Unnamed_Click(object sender, EventArgs e)
         {
             //Incrementa el campo de numero de mensajes y agrega a la lista de historial el nuevo mensaje
-            Chat chat = Extras.GetChat(((Chat)Session["chatID"]).ChatID);
+            Chat chat = Extras.GetChat((int)Session["chatID"]);
 
             JObject jsonChat = JsonConvert.DeserializeObject<JObject>(chat.Data);
             int msgCant = (int)JsonConvert.DeserializeObject<JObject>(chat.Data).GetValue("Messages");
@@ -152,7 +176,9 @@ namespace HomeCook
                 { "message", message.Text }
             });
 
-            chat.Data = (string)jsonChat;
+            jsonChat["Messages"] = msgCant + 1;
+            jsonChat["History"] = history;
+            chat.Data = jsonChat.ToString();
             Extras.UpdateChat(chat);
 
             HtmlGenericControl msgDiv = new HtmlGenericControl("div");
@@ -164,6 +190,11 @@ namespace HomeCook
             msgDiv.InnerText = message.Text;
 
             messages.Controls.Add(msgDiv);
+        }
+
+        protected void Close_Click(object sender, EventArgs e)
+        {
+            //messages.Controls.Add(msgDiv);
         }
     }
 }

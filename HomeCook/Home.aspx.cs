@@ -60,22 +60,26 @@ namespace HomeCooked
         protected void Advert_click(object sender, EventArgs e)
         {
             //Abre un chat con el vendedor.
-
-            //Lee el id del anuncio
-            int id = int.Parse(((LinkButton)sender).ID);
-            Advert adv = Extras.GetAdvert(id);
-
-            //Crea la entrada en la tabla de chats
-            JObject data = new JObject
+            if (logedUser != null)
             {
-                { "Messages", 0 },
-                { "History", new JArray() }
-            };
+                //Lee el id del anuncio
+                int id = int.Parse(((LinkButton)sender).ID);
+                Advert adv = Extras.GetAdvert(id);
 
-            Extras.CreateChat(new Chat(id, adv.Owner.Username, logedUser.Username, true, DateTime.Now, adv.Portions, adv.Owner.Rank, JsonConvert.SerializeObject(data)));
+                //Crea la entrada en la tabla de chats
+                JObject data = new JObject
+                {
+                    { "Messages", 0 },
+                    { "History", new JArray() }
+                };
 
-            //Luego redirige a la página de chats
-            Response.Redirect("/Chats");
+                Extras.CreateChat(new Chat(id, adv.Owner.Username, logedUser.Username, true, DateTime.Now, adv.Portions, adv.Owner.Rank, JsonConvert.SerializeObject(data)));
+
+                //Luego redirige a la página de chats
+                Response.Redirect("/Chats");
+            }
+            else
+                Response.Redirect("/Login");
         }
 
         private void ListarAnuncios(List<Advert> userAdverts)
@@ -149,12 +153,12 @@ namespace HomeCooked
                 alergDiv.Style.Add("height", "40px");
                 alergDiv.InnerHtml = extras.Preferences(userAdverts[i].Preferences);
 
-                //Botones
-                //HtmlGenericControl bloque2_2Div = new HtmlGenericControl("div");
-                //bloque2_2Div.Style.Add("width", "150px");
-                //bloque2_2Div.Style.Add("height", "100px");
-                //bloque2_2Div.Style.Add("float", "right");
-                //bloque2_2Div.ID = userAdverts[i].ID.ToString();
+                //Chef
+                HtmlGenericControl bloque2_2Div = new HtmlGenericControl("div");
+                bloque2_2Div.Style.Add("width", "150px");
+                bloque2_2Div.Style.Add("height", "100px");
+                bloque2_2Div.Style.Add("float", "right");
+                bloque2_2Div.InnerText = userAdverts[i].Owner.Username.ToString();
 
                 //Jerarquía elementDiv
                 elementDiv.Controls.Add(elementLinkButton);
@@ -165,7 +169,7 @@ namespace HomeCooked
                 bloque2Div.Controls.Add(bloque2_1Div);
                 bloque2_1Div.Controls.Add(descDiv);
                 bloque2_1Div.Controls.Add(alergDiv);
-                //bloque2Div.Controls.Add(bloque2_2Div);
+                bloque2Div.Controls.Add(bloque2_2Div);
                 //bloque2_2Div.Controls.Add(b2Div);
 
                 elements.Controls.Add(elementDiv);

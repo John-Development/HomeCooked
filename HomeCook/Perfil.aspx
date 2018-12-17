@@ -7,9 +7,9 @@
         </div>
         <br />
         <div style="float:left">
-            <img src="/" id="profilePic"/>
+            <img src="/images/perfil.jpg" id="profilePic"/>
             <br /> 
-            <input type="file" style="width: 200px" name="profilePic"/>
+            <%--<input type="file" style="width: 200px" name="profilePic"/>--%>
         </div>
         <div style="margin: 0 0 0 240px; width: 600px">
             Nombre de usuario
